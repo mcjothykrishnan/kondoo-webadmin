@@ -46,6 +46,7 @@ import Link from 'next/link';
 import { FcGoogle } from 'react-icons/fc';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseLine } from 'react-icons/ri';
+import Footer from 'components/footer/FooterAdmin';
 
 export default function SignIn() {
 	// Chakra color mode
@@ -92,29 +93,7 @@ export default function SignIn() {
 					mx={{ base: 'auto', lg: 'unset' }}
 					me='auto'
 					mb={{ base: '20px', md: 'auto' }}>
-					<Button
-						fontSize='sm'
-						me='0px'
-						mb='26px'
-						py='15px'
-						h='50px'
-						borderRadius='16px'
-						bgColor={googleBg}
-						color={googleText}
-						fontWeight='500'
-						_hover={googleHover}
-						_active={googleActive}
-						_focus={googleActive}>
-						<Icon as={FcGoogle} w='20px' h='20px' me='10px' />
-						Sign in with Google
-					</Button>
-					<Flex align='center' mb='25px'>
-						<HSeparator />
-						<Text color='gray.400' mx='14px'>
-							or
-						</Text>
-						<HSeparator />
-					</Flex>
+					
 					<FormControl>
 						<FormLabel display='flex' ms='4px' fontSize='sm' fontWeight='500' color={textColor} mb='8px'>
 							Email<Text color={brandStars}>*</Text>
@@ -125,7 +104,7 @@ export default function SignIn() {
 							fontSize='sm'
 							ms={{ base: '0px', md: '0px' }}
 							type='email'
-							placeholder='mail@simmmple.com'
+							placeholder='mail@sabbatech.com'
 							mb='24px'
 							fontWeight='500'
 							size='lg'
@@ -172,9 +151,11 @@ export default function SignIn() {
 
                             </Link>
 						</Flex>
+						<Link href='/admin/create-user'>
 						<Button fontSize='sm' variant='brand' fontWeight='500' w='100%' h='50' mb='24px'>
 							Sign In
 						</Button>
+						</Link>
 					</FormControl>
 					<Flex flexDirection='column' justifyContent='center' alignItems='start' maxW='100%' mt='0px'>
 						<Text color={textColorDetails} fontWeight='400' fontSize='14px'>
@@ -188,6 +169,30 @@ export default function SignIn() {
                             </Link>
 						</Text>
 					</Flex>
+					<Flex align='center' mb='25px'>
+						<HSeparator />
+						<Text color='gray.400' mx='14px'>
+							or
+						</Text>
+						<HSeparator />
+					</Flex>
+					<Button
+						fontSize='sm'
+						me='0px'
+						mb='26px'
+						py='15px'
+						h='50px'
+						borderRadius='16px'
+						bgColor={googleBg}
+						color={googleText}
+						fontWeight='500'
+						_hover={googleHover}
+						_active={googleActive}
+						_focus={googleActive}>
+						<Icon as={FcGoogle} w='20px' h='20px' me='10px' />
+						Sign in with Google
+					</Button>
+					<Footer/>
 				</Flex>
 			</Flex>
 		</DefaultAuthLayout>

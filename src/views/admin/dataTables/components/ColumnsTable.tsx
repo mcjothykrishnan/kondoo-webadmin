@@ -63,7 +63,7 @@ export default function ColumnsTable (props: TableProps) {
           fontWeight='700'
           lineHeight='100%'
         >
-          4-Column Table
+          Users
         </Text>
         <Menu />
       </Flex>
@@ -126,6 +126,27 @@ export default function ColumnsTable (props: TableProps) {
                       </Text>
                     )
                   } else if (cell.column.Header === 'DATE') {
+                    data = (
+                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                        {cell.value}
+                      </Text>
+                    )
+                  }
+                   else if (cell.column.Header === 'Created Date') {
+                    data = (
+                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                        {cell.value}
+                      </Text>
+                    )
+                  }
+                   else if (cell.column.Header === 'Role') {
+                    data = (
+                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                        {cell.value}
+                      </Text>
+                    )
+                  }
+                   else if (cell.column.Header === 'Action') {
                     data = (
                       <Text color={textColor} fontSize='sm' fontWeight='700'>
                         {cell.value}

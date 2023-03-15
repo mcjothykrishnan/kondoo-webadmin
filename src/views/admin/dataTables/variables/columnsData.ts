@@ -60,6 +60,18 @@ export const columnsDataColumns: Columns = [
     Header: "DATE",
     accessor: "date",
   },
+  {
+    Header: "Created Date",
+    accessor: "createdDate",
+  },
+  {
+    Header: "Role",
+    accessor: "role",
+  },
+  {
+    Header: "Action",
+    accessor: "action",
+  },
 ];
 
 export const columnsDataComplex: Columns = [

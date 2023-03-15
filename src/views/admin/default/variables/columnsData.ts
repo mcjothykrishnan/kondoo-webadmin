@@ -18,6 +18,18 @@ export const columnsDataCheck = [
     Header: "DATE",
     accessor: "date",
   },
+  {
+    Header: "Created Date",
+    accessor: "createdDate",
+  },
+  {
+    Header: "Role",
+    accessor: "role",
+  },
+  {
+    Header: "Action",
+    accessor: "action",
+  },
 ];
 export const columnsDataComplex = [
   {
@@ -44,6 +56,7 @@ export type TableData = Column<{
   name: (string | boolean)[];
   date: string;
   progress: number;
+  createdDate:string;
   quantity?: number;
   status?: string;
   artworks?: string;

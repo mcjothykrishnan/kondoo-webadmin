@@ -1,6 +1,7 @@
 // Chakra imports
 import { Box, Flex, Icon, useColorModeValue, Text } from '@chakra-ui/react';
-import Footer from 'components/footer/FooterAuth';
+import Footerr from 'components/footer/FooterAuth';
+import Footer from 'components/footer/FooterAdmin';
 import FixedPlugin from 'components/fixedPlugin/FixedPlugin';
 // Assets
 import { FaChevronLeft } from 'react-icons/fa';
@@ -28,7 +29,7 @@ function AuthIllustration(props: { children: ReactNode; illustrationBackground: 
 				ps={{ xl: '70px' }}
 				justifyContent='start'
 				direction='column'>
-				<Link
+				{/* <Link
                     href='/admin'
                     style={{
                         width: 'fit-content',
@@ -46,7 +47,7 @@ function AuthIllustration(props: { children: ReactNode; illustrationBackground: 
                         </Text>
                     </Flex>
 
-                </Link>
+                </Link> */}
 				{children}
 				<Box
 					display={{ base: 'none', md: 'block' }}
@@ -66,8 +67,9 @@ function AuthIllustration(props: { children: ReactNode; illustrationBackground: 
 						position='absolute'
 						borderBottomLeftRadius={{ lg: '120px', xl: '200px' }}
 					/>
+					
 				</Box>
-				<Footer mb={{ xl: '3vh' }} />
+				{/* <Footerr mb={{ xl: '3vh' }} /> */}
 			</Flex>
 			<FixedPlugin />
 		</Flex>
