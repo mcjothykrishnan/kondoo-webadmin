@@ -71,7 +71,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 				p='6px'
 				align='center'
 				me='6px'>
-				{/* <Flex align='center' justify='center' bg={ethBox} h='29px' w='29px' borderRadius='30px' me='7px'>
+				<Flex align='center' justify='center' bg={ethBox} h='29px' w='29px' borderRadius='30px' me='7px'>
 					<Icon color={ethColor} w='9px' h='14px' as={FaEthereum} />
 				</Flex>
 				<Text w='max-content' color={ethColor} fontSize='sm' fontWeight='700' me='6px'>
@@ -80,7 +80,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 						{' '}
 						ETH
 					</Text>
-				</Text> */}
+				</Text>
 			</Flex>
 			<SidebarResponsive routes={routes} />
 			<Menu>
@@ -130,7 +130,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 					mt='22px'
 					minW={{ base: 'unset' }}
 					maxW={{ base: '360px', md: 'unset' }}>
-					<Image src={navImage} borderRadius='16px' mb='28px' />
+					<Image src={navImage} borderRadius='16px' mb='28px' alt="" />
 					<Flex flexDirection='column'>
 						<Link w='100%' href='https://horizon-ui.com/pro'>
 							<Button w='100%' h='44px' mb='10px' variant='brand'>

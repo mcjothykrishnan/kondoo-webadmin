@@ -31,7 +31,7 @@ export default function SidebarDocs () {
         top='-47px'
         transform='translate(-50%, 0%)'
       >
-        <Image src={logoWhite} w='40px' h='40px' />
+        <Image src={logoWhite} w='40px' h='40px' alt=""/>
       </Flex>
       <Flex
         direction='column'
