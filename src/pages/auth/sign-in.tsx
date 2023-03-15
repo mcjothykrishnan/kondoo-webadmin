@@ -61,7 +61,7 @@ export default function SignIn() {
 	const [ show, setShow ] = React.useState(false);
 	const handleClick = () => setShow(!show);
 	return (
-		<DefaultAuthLayout illustrationBackground={'/img/auth/auth.png'}>
+        <DefaultAuthLayout illustrationBackground={'/img/auth/auth.png'}>
 			<Flex
 				maxW={{ base: '100%', md: 'max-content' }}
 				w='100%'
@@ -165,12 +165,12 @@ export default function SignIn() {
 								</FormLabel>
 							</FormControl>
 							<Link href='/auth/forgot-password'>
-								<a>
-									<Text color={textColorBrand} fontSize='sm' w='124px' fontWeight='500'>
-										Forgot password?
-									</Text>
-								</a>
-							</Link>
+
+                                <Text color={textColorBrand} fontSize='sm' w='124px' fontWeight='500'>
+                                    Forgot password?
+                                </Text>
+
+                            </Link>
 						</Flex>
 						<Button fontSize='sm' variant='brand' fontWeight='500' w='100%' h='50' mb='24px'>
 							Sign In
@@ -180,16 +180,16 @@ export default function SignIn() {
 						<Text color={textColorDetails} fontWeight='400' fontSize='14px'>
 							Not registered yet?
 							<Link href='/auth/sign-up'>
-								<a>
-									<Text color={textColorBrand} as='span' ms='5px' fontWeight='500'>
-										Create an Account
-									</Text>
-								</a>
-							</Link>
+
+                                <Text color={textColorBrand} as='span' ms='5px' fontWeight='500'>
+                                    Create an Account
+                                </Text>
+
+                            </Link>
 						</Text>
 					</Flex>
 				</Flex>
 			</Flex>
 		</DefaultAuthLayout>
-	);
+    );
 }

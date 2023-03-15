@@ -12,7 +12,7 @@ function AuthIllustration(props: { children: ReactNode; illustrationBackground: 
 	const { children, illustrationBackground } = props;
 	// Chakra color mode
 	return (
-		<Flex minW='100vh' bg={authBg} position='relative' h='max-content'>
+        <Flex minW='100vh' bg={authBg} position='relative' h='max-content'>
 			<Flex
 				h={{
 					sm: 'initial',
@@ -28,24 +28,25 @@ function AuthIllustration(props: { children: ReactNode; illustrationBackground: 
 				ps={{ xl: '70px' }}
 				justifyContent='start'
 				direction='column'>
-				<Link href='/admin'>
-					<a
-						style={{
-							width: 'fit-content',
-							marginTop: '40px'
-						}}>
-						<Flex
-							align='center'
-							ps={{ base: '25px', lg: '0px' }}
-							pt={{ lg: '0px', xl: '0px' }}
-							w='fit-content'>
-							<Icon as={FaChevronLeft} me='12px' h='13px' w='8px' color='secondaryGray.600' />
-							<Text ms='0px' fontSize='sm' color='secondaryGray.600'>
-								Back to Simmmple
-							</Text>
-						</Flex>
-					</a>
-				</Link>
+				<Link
+                    href='/admin'
+                    style={{
+                        width: 'fit-content',
+                        marginTop: '40px'
+                    }}>
+
+                    <Flex
+                        align='center'
+                        ps={{ base: '25px', lg: '0px' }}
+                        pt={{ lg: '0px', xl: '0px' }}
+                        w='fit-content'>
+                        <Icon as={FaChevronLeft} me='12px' h='13px' w='8px' color='secondaryGray.600' />
+                        <Text ms='0px' fontSize='sm' color='secondaryGray.600'>
+                            Back to Simmmple
+                        </Text>
+                    </Flex>
+
+                </Link>
 				{children}
 				<Box
 					display={{ base: 'none', md: 'block' }}
@@ -70,7 +71,7 @@ function AuthIllustration(props: { children: ReactNode; illustrationBackground: 
 			</Flex>
 			<FixedPlugin />
 		</Flex>
-	);
+    );
 }
 
 export default AuthIllustration;

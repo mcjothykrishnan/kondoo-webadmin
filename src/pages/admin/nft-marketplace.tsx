@@ -99,7 +99,7 @@ export default function NftMarketplace () {
                   ms={{ base: '24px', md: '0px' }}
                   mt={{ base: '20px', md: '0px' }}
                 >
-                  <NextLink href='#art' passHref>
+                  <NextLink href='#art' passHref legacyBehavior>
                     <Link
                       color={textColorBrand}
                       fontWeight='500'
@@ -108,7 +108,7 @@ export default function NftMarketplace () {
                       Art
                     </Link>
                   </NextLink>
-                  <NextLink href='#music' passHref>
+                  <NextLink href='#music' passHref legacyBehavior>
                     <Link
                       color={textColorBrand}
                       fontWeight='500'
@@ -117,7 +117,7 @@ export default function NftMarketplace () {
                       Music
                     </Link>
                   </NextLink>
-                  <NextLink href='#collectibles' passHref>
+                  <NextLink href='#collectibles' passHref legacyBehavior>
                     <Link
                       color={textColorBrand}
                       fontWeight='500'
@@ -126,7 +126,7 @@ export default function NftMarketplace () {
                       Collectibles
                     </Link>
                   </NextLink>
-                  <NextLink href='#sports' passHref>
+                  <NextLink href='#sports' passHref legacyBehavior>
                     <Link color={textColorBrand} fontWeight='500'>
                       Sports
                     </Link>
@@ -327,5 +327,5 @@ export default function NftMarketplace () {
         {/* Delete Product */}
       </Box>
     </AdminLayout>
-  )
+  );
 }
