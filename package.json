@@ -1,5 +1,6 @@
 {
   "name": "kondoo-webadmin",
+  "homepage": "http://122.165.52.124:8080/kondoo-webadmin",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
