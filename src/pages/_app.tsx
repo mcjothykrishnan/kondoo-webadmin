@@ -15,7 +15,7 @@ function MyApp ({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <Head>
-        <title>Kondoo Webadmin</title>
+        <title>Kondoo webadmin</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta name='theme-color' content='#000000' />
       </Head>
