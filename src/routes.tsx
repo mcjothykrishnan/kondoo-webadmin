@@ -41,6 +41,21 @@ const routes: IRoute[] = [
     component: NFTMarketplace,
     secondary: true
   },
+  {
+    name: 'Players',
+    layout: '/admin',
+    path: '/players',
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width='20px'
+        height='20px'
+        color='inherit'
+      />
+    ),
+    component: NFTMarketplace,
+    secondary: true
+  },
   // {
   //   name: 'NFT Marketplace',
   //   layout: '/admin',

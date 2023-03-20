@@ -27,12 +27,18 @@ import tableDataDevelopment from "views/admin/dataTables/variables/tableDataDeve
 import tableDataCheck from "views/admin/dataTables/variables/tableDataCheck.json";
 import tableDataColumns from "views/admin/dataTables/variables/tableDataColumns.json";
 import tableDataComplex from "views/admin/dataTables/variables/tableDataComplex.json";
-import React from "react";
+// import React from "react";
 import AdminLayout from "layouts/admin";
 import { TableData } from "views/admin/default/variables/columnsData";
 import Card from "components/card/Card";
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { RiEyeCloseLine } from 'react-icons/ri';
+
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Controller, useForm } from 'react-hook-form';
+import actions from '../../actions/index';
+import { userEntries } from '../../entries/createUserEntries';
 export default function DataTables() {
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
@@ -52,6 +58,89 @@ export default function DataTables() {
   );
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  //redux integration
+  const dispatch = useDispatch();
+  const defaultValues = {};
+  const [rowTableData, setRowTableData] = useState([]);
+  const { userGet, user } = useSelector((state) => state?.user);
+
+  console.log(user, 'uservalue');
+  console.log(userGet, 'userGet');
+
+  const header = ['s.no', 'UserName', 'Email', 'Mobile Number', 'user type', 'Actions'];
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues,
+  });
+
+  function onSubmit(data1) {
+    console.log(data1, 'checkData');
+    const data = {
+      data: data1,
+      method: 'post',
+      apiName: 'users/create',
+    };
+
+    dispatch(actions.USER_CREATE(data));
+    reset({
+      user_id: "",
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+      country_code: "",
+      phone_number: "",
+      display_picture: "",
+      login_method: "",
+      user_role: "",
+      is_email_verified:""
+    });
+  }
+
+  useEffect(() => {
+    const data = {
+      data: {},
+      method: 'get',
+      apiName: 'users/list?skip=0&take=50',
+    };
+    console.log(data, 'checkDataValue');
+
+    dispatch(actions.USER(data));
+  }, [dispatch, userGet]);
+
+  useEffect(() => {
+    const tempArr = [];
+    user?.data?.map((data) =>
+      tempArr.push({
+        id: data?.id,
+        user_id: data?.user_id,
+        first_name: data?.first_name,
+        last_name: data?.last_name,
+        email: data?.email,
+        password: data?.password,
+        country_code: data?.country_code,
+        phone_number: data?.phone_number,
+        display_picture: data?.display_picture,
+        login_method: data?.login_method,
+        user_role: data?.user_role,
+        is_email_verified: data?.is_email_verified,
+        status: data?.status,
+        createdAt: data?.createdAt,
+        updatedAt: data?.updatedAt
+   
+      }),
+    );
+    setRowTableData(tempArr);
+  }, [user]);
+
+  const handleCancel = () => {
+    reset(defaultValues);
+  };
   return (
     <AdminLayout>
       <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
@@ -68,8 +157,24 @@ export default function DataTables() {
               columns={{ sm: 1, md: 3 }}
               spacing={{ base: "20px", xl: "20px" }}
             >
-              <div>
-                <FormLabel
+
+
+
+
+ {userEntries?.map((keyValue,key) => (
+          <Grid item md={keyValue.breakpoint} sm={12} xs={12} key={key}>
+            <Controller
+              name={keyValue.name}
+              rules={{
+                required: keyValue?.validation?.required,
+                pattern: keyValue.pattern,
+              }}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  {keyValue?.isTextInput && (
+                    <>
+                        <FormLabel
                   display="flex"
                   ms="4px"
                   fontSize="sm"
@@ -77,157 +182,49 @@ export default function DataTables() {
                   color={textColor}
                   mb="8px"
                 >
-                  Name<Text color={brandStars}>*</Text>
+                  {keyValue.label}<Text color={brandStars}>*</Text>
                 </FormLabel>
-                <Input
+                    
+                        <Input
                   isRequired={true}
                   variant="auth"
                   fontSize="sm"
                   ms={{ base: "0px", md: "0px" }}
                   type="text"
-                  placeholder="Enter Name"
+                  placeholder={keyValue.placeholder}
+                  value={value}
+                  onChange={onChange}
                   mb="24px"
                   fontWeight="500"
                   size="md"
                 />
-              </div>
-              <div>
-                <FormLabel
-                  display="flex"
-                  ms="4px"
-                  fontSize="sm"
-                  fontWeight="500"
-                  color={textColor}
-                  mb="8px"
-                >
-                  Email<Text color={brandStars}>*</Text>
-                </FormLabel>
-                <Input
-                  isRequired={true}
-                  variant="auth"
-                  fontSize="sm"
-                  ms={{ base: "0px", md: "0px" }}
-                  type="email"
-                  placeholder="mail@sabbatech.com"
-                  mb="24px"
-                  fontWeight="500"
-                  size="md"
-                />
-              </div>
-              <div>
-                <FormLabel
-                  display="flex"
-                  ms="4px"
-                  fontSize="sm"
-                  fontWeight="500"
-                  color={textColor}
-                  mb="8px"
-                >
-                  Mobile Number<Text color={brandStars}>*</Text>
-                </FormLabel>
-                <Input
-                  isRequired={true}
-                  variant="auth"
-                  fontSize="sm"
-                  ms={{ base: "0px", md: "0px" }}
-                  type="text"
-                  placeholder="Enter Mobile Number"
-                  mb="24px"
-                  fontWeight="500"
-                  size="md"
-                />
-              </div>
-              <div>
-                <FormLabel
-                  display="flex"
-                  ms="4px"
-                  fontSize="sm"
-                  fontWeight="500"
-                  color={textColor}
-                  mb="8px"
-                >
-                  Role<Text color={brandStars}>*</Text>
-                </FormLabel>
-                <Input
-                  isRequired={true}
-                  variant="auth"
-                  fontSize="sm"
-                  ms={{ base: "0px", md: "0px" }}
-                  type="text"
-                  placeholder="Admin"
-                  mb="24px"
-                  fontWeight="500"
-                  size="md"
-                />
-              </div>
-              <div>
-                <FormLabel
-                  ms="4px"
-                  fontSize="sm"
-                  fontWeight="500"
-                  color={textColor}
-                  display="flex"
-                >
-                  Password<Text color={brandStars}>*</Text>
-                </FormLabel>
-                <InputGroup size="sm">
-                  <Input
-                    isRequired={true}
-                    fontSize="sm"
-                    placeholder="Min. 8 characters"
-                    mb="24px"
-                    size="lg"
-                    type={show ? "text" : "password"}
-                    variant="auth"
-                  />
-                  {/* <InputRightElement
-                    display="flex"
-                    alignItems="center"
-                    mt="4px"
-                  >
-                    <Icon
-                      color={textColorSecondary}
-                      _hover={{ cursor: "pointer" }}
-                    //   as={show ? RiEyeCloseLine : MdOutlineRemoveRedEye}
-                      onClick={handleClick}
-                    />
-                  </InputRightElement> */}
-                </InputGroup>
-              </div>
-              <div>
-                <FormLabel
-                  ms="4px"
-                  fontSize="sm"
-                  fontWeight="500"
-                  color={textColor}
-                  display="flex"
-                >
-                   Confirm Password<Text color={brandStars}>*</Text>
-                </FormLabel>
-                <InputGroup size="sm">
-                  <Input
-                    isRequired={true}
-                    fontSize="sm"
-                    placeholder="Min. 8 characters"
-                    mb="24px"
-                    size="lg"
-                    type={show ? "text" : "password"}
-                    variant="auth"
-                  />
-                  {/* <InputRightElement
-                    display="flex"
-                    alignItems="center"
-                    mt="4px"
-                  >
-                    <Icon
-                      color={textColorSecondary}
-                      _hover={{ cursor: "pointer" }}
-                      as={show ? RiEyeCloseLine : MdOutlineRemoveRedEye}
-                      onClick={handleClick}
-                    />
-                  </InputRightElement> */}
-                </InputGroup>
-              </div>
+                    </>
+                  )}
+                
+                </>
+              )}
+            />
+            {errors && errors[keyValue?.name]?.type === 'required' && (
+              <Grid>
+                <CustomTypography text={`${keyValue?.label} is Required`} type="error" />
+              </Grid>
+            )}
+            {errors && errors[keyValue?.name]?.type === 'pattern' && (
+              <Grid>
+                <CustomTypography text={`${keyValue?.label} is Invalid`} type="error" />
+              </Grid>
+            )}
+          </Grid>
+        ))}
+
+
+
+
+
+
+
+
+
 
               <div></div>
               <div></div>
@@ -243,6 +240,7 @@ export default function DataTables() {
                   h="50"
                   mb="24px"
                   size="sm"
+                  onClick={handleSubmit(onSubmit)}
                 >
                   Sign In
                 </Button>
@@ -261,6 +259,7 @@ export default function DataTables() {
                   _hover={googleHover}
                   _active={googleActive}
                   _focus={googleActive}
+                  onClick={() => handleCancel()}
                 >
                   Cancel
                 </Button>
@@ -276,7 +275,8 @@ export default function DataTables() {
         >
           <ColumnsTable
             columnsData={columnsDataColumns}
-            tableData={tableDataColumns as unknown as TableData[]}
+            // tableData={tableDataColumns as unknown as TableData[]}
+            tableData={rowTableData as unknown as TableData[]}
           />
         </SimpleGrid>
       </Box>
