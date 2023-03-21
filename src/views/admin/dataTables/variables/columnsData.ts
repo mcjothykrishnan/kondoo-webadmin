@@ -45,31 +45,31 @@ export const columnsDataCheck: Columns = [
 
 export const columnsDataColumns: Columns = [
   {
-    Header: "NAME",
-    accessor: "name",
+    Header: "S.no",
+    accessor: "id",
   },
   {
-    Header: "PROGRESS",
-    accessor: "progress",
+    Header: "Name",
+    accessor: "first_name",
   },
   {
-    Header: "QUANTITY",
-    accessor: "quantity",
+    Header: "Email",
+    accessor: "email",
   },
   {
-    Header: "DATE",
-    accessor: "date",
+    Header: "Mobile Number",
+    accessor: "phone_number",
   },
   {
     Header: "Created Date",
-    accessor: "createdDate",
+    accessor: "createdAt",
   },
   {
     Header: "Role",
-    accessor: "role",
+    accessor: "user_role",
   },
   {
-    Header: "Action",
+    Header: "Actions",
     accessor: "action",
   },
 ];

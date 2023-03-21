@@ -68,7 +68,7 @@ export const userEntries = [
 
   {
     isTextInput: true,
-    name: "confirmPassword",
+    name: "login_method",
     label: "Confirm Password",
     breakpoint: 4,
     // pattern: /^[A-Za-z][A-Za-z0-9_]{7,29}$/,

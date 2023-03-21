@@ -66,9 +66,9 @@ function TopCreatorTable (props: TableProps) {
           boxShadow='0px 40px 58px -20px rgba(112, 144, 176, 0.26)'
         >
           <Text color={textColor} fontSize='xl' fontWeight='600'>
-            Top Creators
+            All Players
           </Text>
-          <Button variant='action'>See all</Button>
+          {/* <Button variant='action'>See all</Button> */}
         </Flex>
         <Table {...getTableProps()} variant='simple' color='gray.500'>
           <Thead>
@@ -102,7 +102,7 @@ function TopCreatorTable (props: TableProps) {
                 <Tr {...row.getRowProps()} key={index}>
                   {row.cells.map((cell, index) => {
                     let data
-                    if (cell.column.Header === 'Name') {
+                    if (cell.column.Header === 'User ID') {
                       data = (
                         <Flex align='center'>
                           <Avatar
@@ -120,7 +120,7 @@ function TopCreatorTable (props: TableProps) {
                           </Text>
                         </Flex>
                       )
-                    } else if (cell.column.Header === 'Artworks') {
+                    } else if (cell.column.Header === 'Name') {
                       data = (
                         <Text
                           color={textColorSecondary}
@@ -130,7 +130,62 @@ function TopCreatorTable (props: TableProps) {
                           {cell.value}
                         </Text>
                       )
-                    } else if (cell.column.Header === 'Rating') {
+                    } else if (cell.column.Header === 'Rankings') {
+                      data = (
+                        <Box>
+                          <Progress
+                            variant='table'
+                            colorScheme='brandScheme'
+                            value={cell.value}
+                          />
+                        </Box>
+                      )
+                    }
+                     else if (cell.column.Header === 'Sessions') {
+                      data = (
+                        <Box>
+                          <Progress
+                            variant='table'
+                            colorScheme='brandScheme'
+                            value={cell.value}
+                          />
+                        </Box>
+                      )
+                    }
+                     else if (cell.column.Header === 'Points Collected') {
+                     data = (
+                        <Box>
+                          <Progress
+                            variant='table'
+                            colorScheme='brandScheme'
+                            value={cell.value}
+                          />
+                        </Box>
+                      )
+                    }
+                     else if (cell.column.Header === 'Renewal Date') {
+                      data = (
+                        <Box>
+                          <Progress
+                            variant='table'
+                            colorScheme='brandScheme'
+                            value={cell.value}
+                          />
+                        </Box>
+                      )
+                    }
+                     else if (cell.column.Header === 'Last Active') {
+                      data = (
+                        <Box>
+                          <Progress
+                            variant='table'
+                            colorScheme='brandScheme'
+                            value={cell.value}
+                          />
+                        </Box>
+                      )
+                    }
+                     else if (cell.column.Header === 'Actions') {
                       data = (
                         <Box>
                           <Progress

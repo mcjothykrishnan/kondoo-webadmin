@@ -98,7 +98,7 @@ export default function ColumnsTable (props: TableProps) {
               <Tr {...row.getRowProps()} key={index}>
                 {row.cells.map((cell, index) => {
                   let data
-                  if (cell.column.Header === 'NAME') {
+                  if (cell.column.Header === 'S.no') {
                     data = (
                       <Flex align='center'>
                         <Text color={textColor} fontSize='sm' fontWeight='700'>
@@ -106,7 +106,7 @@ export default function ColumnsTable (props: TableProps) {
                         </Text>
                       </Flex>
                     )
-                  } else if (cell.column.Header === 'PROGRESS') {
+                  } else if (cell.column.Header === 'Name') {
                     data = (
                       <Flex align='center'>
                         <Text
@@ -119,13 +119,13 @@ export default function ColumnsTable (props: TableProps) {
                         </Text>
                       </Flex>
                     )
-                  } else if (cell.column.Header === 'QUANTITY') {
+                  } else if (cell.column.Header === 'Email') {
                     data = (
                       <Text color={textColor} fontSize='sm' fontWeight='700'>
                         {cell.value}
                       </Text>
                     )
-                  } else if (cell.column.Header === 'DATE') {
+                  } else if (cell.column.Header === 'Mobile Number') {
                     data = (
                       <Text color={textColor} fontSize='sm' fontWeight='700'>
                         {cell.value}
@@ -146,7 +146,7 @@ export default function ColumnsTable (props: TableProps) {
                       </Text>
                     )
                   }
-                   else if (cell.column.Header === 'Action') {
+                   else if (cell.column.Header === 'Actions') {
                     data = (
                       <Text color={textColor} fontSize='sm' fontWeight='700'>
                         {cell.value}

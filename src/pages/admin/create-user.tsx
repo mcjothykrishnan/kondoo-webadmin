@@ -60,14 +60,25 @@ export default function DataTables() {
   const handleClick = () => setShow(!show);
   //redux integration
   const dispatch = useDispatch();
-  const defaultValues = {};
+  const defaultValues = {
+    // user_id: "",
+    // first_name: "",
+    // last_name: "",
+    // email: "",
+    // password: "",
+    // country_code: "",
+    // phone_number: "",
+    // display_picture: "",
+    // login_method: "",
+    // user_role: "",
+    // is_email_verified:""
+  };
   const [rowTableData, setRowTableData] = useState([]);
   const { userGet, user } = useSelector((state) => state?.user);
 
   console.log(user, 'uservalue');
   console.log(userGet, 'userGet');
 
-  const header = ['s.no', 'UserName', 'Email', 'Mobile Number', 'user type', 'Actions'];
 
   const {
     control,
@@ -190,7 +201,7 @@ export default function DataTables() {
                   variant="auth"
                   fontSize="sm"
                   ms={{ base: "0px", md: "0px" }}
-                  type="text"
+                  // type="text"
                   placeholder={keyValue.placeholder}
                   value={value}
                   onChange={onChange}
@@ -205,14 +216,16 @@ export default function DataTables() {
               )}
             />
             {errors && errors[keyValue?.name]?.type === 'required' && (
-              <Grid>
-                <CustomTypography text={`${keyValue?.label} is Required`} type="error" />
-              </Grid>
+              <div >
+                {/* <CustomTypography text={`${keyValue?.label} is Required`} type="error" /> */}
+                {`${keyValue?.label} is Required`}
+              </div>
             )}
             {errors && errors[keyValue?.name]?.type === 'pattern' && (
-              <Grid>
-                <CustomTypography text={`${keyValue?.label} is Invalid`} type="error" />
-              </Grid>
+              <div >
+                {/* <CustomTypography text={`${keyValue?.label} is Invalid`} type="error" /> */}
+                {`${keyValue?.label} is Invalid`}
+              </div>
             )}
           </Grid>
         ))}
