@@ -1,4 +1,4 @@
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box, Select, SimpleGrid } from "@chakra-ui/react";
 import { Grid, GridItem, Input, Button } from "@chakra-ui/react";
 import Link from "next/link";
 import {
@@ -31,14 +31,15 @@ import tableDataComplex from "views/admin/dataTables/variables/tableDataComplex.
 import AdminLayout from "layouts/admin";
 import { TableData } from "views/admin/default/variables/columnsData";
 import Card from "components/card/Card";
-import { MdOutlineRemoveRedEye } from 'react-icons/md';
-import { RiEyeCloseLine } from 'react-icons/ri';
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { RiEyeCloseLine } from "react-icons/ri";
 
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Controller, useForm } from 'react-hook-form';
-import actions from '../../actions/index';
-import { userEntries } from '../../entries/createUserEntries';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Controller, useForm } from "react-hook-form";
+import actions from "../../actions/index";
+import { userEntries } from "../../entries/createUserEntries";
+import reactSelect from "react-select";
 export default function DataTables() {
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
@@ -61,25 +62,13 @@ export default function DataTables() {
   //redux integration
   const dispatch = useDispatch();
   const defaultValues = {
-    // user_id: "",
-    // first_name: "",
-    // last_name: "",
-    // email: "",
-    // password: "",
-    // country_code: "",
-    // phone_number: "",
-    // display_picture: "",
-    // login_method: "",
-    // user_role: "",
-    // is_email_verified:""
+
   };
   const [rowTableData, setRowTableData] = useState([]);
   const { userGet, user } = useSelector((state) => state?.user);
 
-  console.log(user, 'uservalue');
-  console.log(userGet, 'userGet');
-
-
+  console.log(user, "uservalue");
+  console.log(userGet, "userGet");
   const {
     control,
     handleSubmit,
@@ -90,11 +79,33 @@ export default function DataTables() {
   });
 
   function onSubmit(data1) {
-    console.log(data1, 'checkData');
+    const submitData = { ...data1 };
+    console.log(submitData, "checkData");
+    const formData = {
+      first_name: submitData.first_name,
+      last_name: (submitData.last_name = "yhyhyhr"),
+      email: submitData.email,
+      phone_number: (submitData.phone_number = parseInt(
+        submitData.phone_number
+      )),
+      user_role: submitData.user_role,
+      password: submitData.password,
+      login_method: submitData.login_method="google",
+    };
+    //  const phone= parseInt(data1?.phone_number)
+
+    //   const formData = new FormData();
+    // formData.append('first_name', "hjgjjyjy");
+    // formData.append('phone_number', 8789968766);
+    // formData.append('email', data1?.email);
+    // formData.append('country_code', 344);
+    // formData.append('user_role', data1?.user_role);
+    // formData.append('password', data1?.password);
+    // formData.append('status', data1?.status === 'Active' ? 1 : 0);
     const data = {
-      data: data1,
-      method: 'post',
-      apiName: 'users/create',
+      data: formData,
+      method: "post",
+      apiName: "users/create",
     };
 
     dispatch(actions.USER_CREATE(data));
@@ -109,17 +120,17 @@ export default function DataTables() {
       display_picture: "",
       login_method: "",
       user_role: "",
-      is_email_verified:""
+      is_email_verified: "",
     });
   }
 
   useEffect(() => {
     const data = {
       data: {},
-      method: 'get',
-      apiName: 'users/list?skip=0&take=50',
+      method: "get",
+      apiName: "users/list?skip=0&take=50",
     };
-    console.log(data, 'checkDataValue');
+    console.log(data, "checkDataValue");
 
     dispatch(actions.USER(data));
   }, [dispatch, userGet]);
@@ -142,9 +153,8 @@ export default function DataTables() {
         is_email_verified: data?.is_email_verified,
         status: data?.status,
         createdAt: data?.createdAt,
-        updatedAt: data?.updatedAt
-   
-      }),
+        updatedAt: data?.updatedAt,
+      })
     );
     setRowTableData(tempArr);
   }, [user]);
@@ -168,76 +178,174 @@ export default function DataTables() {
               columns={{ sm: 1, md: 3 }}
               spacing={{ base: "20px", xl: "20px" }}
             >
+              {userEntries?.map((keyValue, key) => (
+                <Grid item md={keyValue.breakpoint} sm={12} xs={12} key={key}>
+                  <Controller
+                    name={keyValue.name}
+                    rules={{
+                      required: keyValue?.validation?.required,
+                      pattern: keyValue.pattern,
+                    }}
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <>
+                        {keyValue?.isTextInput && (
+                          <>
+                            <FormLabel
+                              display="flex"
+                              ms="4px"
+                              fontSize="sm"
+                              fontWeight="500"
+                              color={textColor}
+                              mb="8px"
+                            >
+                              {keyValue.label}
+                              <Text color={brandStars}>*</Text>
+                            </FormLabel>
 
+                            <Input
+                              isRequired={true}
+                              variant="auth"
+                              fontSize="sm"
+                              ms={{ base: "0px", md: "0px" }}
+                              // type="text"
+                              placeholder={keyValue.placeholder}
+                              value={value}
+                              onChange={onChange}
+                              mb="24px"
+                              fontWeight="500"
+                              size="md"
+                            />
+                          </>
+                        )}
+                        {keyValue?.isPasswordInput && (
+                          <>
+                            <FormLabel
+                              display="flex"
+                              ms="4px"
+                              fontSize="sm"
+                              fontWeight="500"
+                              color={textColor}
+                              mb="8px"
+                            >
+                              {keyValue.label}
+                              <Text color={brandStars}>*</Text>
+                            </FormLabel>
+                            <InputGroup size="md">
+                              <Input
+                                isRequired={true}
+                                fontSize="sm"
+                                placeholder={keyValue.placeholder}
+                                mb="24px"
+                                size="md"
+                                value={value}
+                                onChange={onChange}
+                                type={show ? "text" : "password"}
+                                variant="auth"
+                              />
+                              <InputRightElement
+                                display="flex"
+                                alignItems="center"
+                                mt="3px"
+                              >
+                                <Icon
+                                  color={textColorSecondary}
+                                  _hover={{ cursor: "pointer" }}
+                                  as={
+                                    show
+                                      ? RiEyeCloseLine
+                                      : MdOutlineRemoveRedEye
+                                  }
+                                  onClick={handleClick}
+                                />
+                              </InputRightElement>
+                            </InputGroup>
+                         
+                          </>
+                        )}
+                        {keyValue?.isDropdownInput && (
+                          <>
+                            <FormLabel
+                              display="flex"
+                              ms="4px"
+                              fontSize="sm"
+                              fontWeight="500"
+                              color={textColor}
+                              mb="8px"
+                            >
+                              {keyValue.label}
+                              <Text color={brandStars}>*</Text>
+                            </FormLabel>
+                            <Select
+                                isRequired={true}
+                                variant="auth"
+                                fontSize="sm"
+                                ms={{ base: "0px", md: "0px" }}
+                                placeholder={keyValue.placeholder}
+                                value={value}
+                                onChange={onChange}
+                                mb="24px"
+                                fontWeight="500"
+                                size="md"
+                            >
+                              <option value="admin">Admin</option>
+                              <option value="player">Player</option>
+                              
+                            </Select>
+                            {/* <Select
+                              id="balance"
+                              variant="mini"
+                              mt="5px"
+                              me="0px"
+                              defaultValue="admin"
+                            >
+                              <Input
+                                isRequired={true}
+                                fontSize="sm"
+                                placeholder={keyValue.placeholder}
+                                mb="24px"
+                                size="md"
+                                value={value}
+                                onChange={onChange}
+                                type={show ? "text" : "password"}
+                                variant="auth"
+                              />
+                              <option value="admin">Admin</option>
+                              <option value="Player">Player</option>
+                            </Select> */}
 
-
-
- {userEntries?.map((keyValue,key) => (
-          <Grid item md={keyValue.breakpoint} sm={12} xs={12} key={key}>
-            <Controller
-              name={keyValue.name}
-              rules={{
-                required: keyValue?.validation?.required,
-                pattern: keyValue.pattern,
-              }}
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <>
-                  {keyValue?.isTextInput && (
-                    <>
-                        <FormLabel
-                  display="flex"
-                  ms="4px"
-                  fontSize="sm"
-                  fontWeight="500"
-                  color={textColor}
-                  mb="8px"
-                >
-                  {keyValue.label}<Text color={brandStars}>*</Text>
-                </FormLabel>
-                    
-                        <Input
-                  isRequired={true}
-                  variant="auth"
-                  fontSize="sm"
-                  ms={{ base: "0px", md: "0px" }}
-                  // type="text"
-                  placeholder={keyValue.placeholder}
-                  value={value}
-                  onChange={onChange}
-                  mb="24px"
-                  fontWeight="500"
-                  size="md"
-                />
-                    </>
+                            {/* <Input
+                              isRequired={true}
+                              variant="auth"
+                              fontSize="sm"
+                              ms={{ base: "0px", md: "0px" }}
+                              // type="text"
+                              placeholder={keyValue.placeholder}
+                              value={value}
+                              onChange={onChange}
+                              mb="24px"
+                              fontWeight="500"
+                              size="md"
+                            /> */}
+                          </>
+                        )}
+                      </>
+                    )}
+                  />
+                  {errors && errors[keyValue?.name]?.type === "required" && (
+                    <div>
+                      {/* <CustomTypography text={`${keyValue?.label} is Required`} type="error" /> */}
+                      {`${keyValue?.label} is Required`}
+                    </div>
                   )}
-                
-                </>
-              )}
-            />
-            {errors && errors[keyValue?.name]?.type === 'required' && (
-              <div >
-                {/* <CustomTypography text={`${keyValue?.label} is Required`} type="error" /> */}
-                {`${keyValue?.label} is Required`}
-              </div>
-            )}
-            {errors && errors[keyValue?.name]?.type === 'pattern' && (
-              <div >
-                {/* <CustomTypography text={`${keyValue?.label} is Invalid`} type="error" /> */}
-                {`${keyValue?.label} is Invalid`}
-              </div>
-            )}
-          </Grid>
-        ))}
-
-
-
-
-
-
-
-
-
+                  {errors && errors[keyValue?.name]?.type === "pattern" && (
+                    <div>
+                      {/* <CustomTypography text={`${keyValue?.label} is Invalid`} type="error" /> */}
+                      {`${keyValue?.label} is Invalid`}
+                    </div>
+                  )}
+                </Grid>
+              ))}
 
               <div></div>
               <div></div>
@@ -255,7 +363,7 @@ export default function DataTables() {
                   size="sm"
                   onClick={handleSubmit(onSubmit)}
                 >
-                  Sign In
+                  Submit
                 </Button>
                 <Button
                   fontSize="sm"

@@ -1,19 +1,19 @@
 export const tableColumnsTopCreators = [
   {
     Header: "Name",
-    accessor: "artworks",
+    accessor: "first_name",
   },
   {
     Header: "User ID",
-    accessor: "name",
+    accessor: "user_id",
   },
   {
     Header: "Rankings",
-    accessor: "rating",
+    accessor: "user_role",
   },
   {
     Header: "Sessions",
-    accessor: "user",
+    accessor: "login_method",
   },
   {
     Header: "Points Collected",
@@ -21,14 +21,14 @@ export const tableColumnsTopCreators = [
   },
   {
     Header: "Renewal Date",
-    accessor: "rank",
+    accessor: "createdAt",
   },
   {
     Header: "Last Active",
-    accessor: "time",
+    accessor: "status",
   },
   {
     Header: "Actions",
-    accessor: "mail",
+    accessor: "country_code",
   },
 ];

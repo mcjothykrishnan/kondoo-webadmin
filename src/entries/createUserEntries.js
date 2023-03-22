@@ -40,7 +40,7 @@ export const userEntries = [
   },
 
   {
-    isTextInput: true,
+    isDropdownInput: true,
     name: "user_role",
     label: "Role",
     breakpoint: 4,
@@ -49,11 +49,11 @@ export const userEntries = [
     requiredField: true,
     customClass: "textBox",
     validation_error_message: "Text is in Invalid format",
-    placeholder: "Enter Role",
+    placeholder: "Select Role",
   },
 
   {
-    isTextInput: true,
+    isPasswordInput: true,
     name: "password",
     label: "Password",
     breakpoint: 4,
@@ -67,8 +67,8 @@ export const userEntries = [
   },
 
   {
-    isTextInput: true,
-    name: "login_method",
+    isPasswordInput: true,
+    name: "confirmPassword",
     label: "Confirm Password",
     breakpoint: 4,
     // pattern: /^[A-Za-z][A-Za-z0-9_]{7,29}$/,
@@ -80,12 +80,12 @@ export const userEntries = [
     placeholder: "Confirm Password",
   },
 ];
-export const userDefaultEntries = [
-  {
-    // username: "",
-    email: "",
-    password: "",
+// export const userDefaultEntries = [
+//   {
+//     // username: "",
+//     email: "",
+//     password: "",
     
-    // user_type: "",
-  },
-];
+//     // user_type: "",
+//   },
+// ];

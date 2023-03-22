@@ -102,7 +102,7 @@ function TopCreatorTable (props: TableProps) {
                 <Tr {...row.getRowProps()} key={index}>
                   {row.cells.map((cell, index) => {
                     let data
-                    if (cell.column.Header === 'User ID') {
+                    if (cell.column.Header === 'Name') {
                       data = (
                         <Flex align='center'>
                           <Avatar
@@ -116,11 +116,11 @@ function TopCreatorTable (props: TableProps) {
                             fontSize='sm'
                             fontWeight='600'
                           >
-                            {cell.value[0]}
+                            {cell.value}
                           </Text>
                         </Flex>
                       )
-                    } else if (cell.column.Header === 'Name') {
+                    } else if (cell.column.Header === 'User ID') {
                       data = (
                         <Text
                           color={textColorSecondary}
@@ -132,68 +132,68 @@ function TopCreatorTable (props: TableProps) {
                       )
                     } else if (cell.column.Header === 'Rankings') {
                       data = (
-                        <Box>
-                          <Progress
-                            variant='table'
-                            colorScheme='brandScheme'
-                            value={cell.value}
-                          />
-                        </Box>
+                        <Text
+                        color={textColorSecondary}
+                        fontSize='sm'
+                        fontWeight='500'
+                      >
+                        {cell.value}
+                      </Text>
                       )
                     }
                      else if (cell.column.Header === 'Sessions') {
                       data = (
-                        <Box>
-                          <Progress
-                            variant='table'
-                            colorScheme='brandScheme'
-                            value={cell.value}
-                          />
-                        </Box>
+                        <Text
+                        color={textColorSecondary}
+                        fontSize='sm'
+                        fontWeight='500'
+                      >
+                        {cell.value}
+                      </Text>
                       )
                     }
                      else if (cell.column.Header === 'Points Collected') {
                      data = (
-                        <Box>
-                          <Progress
-                            variant='table'
-                            colorScheme='brandScheme'
-                            value={cell.value}
-                          />
-                        </Box>
+                      <Text
+                      color={textColorSecondary}
+                      fontSize='sm'
+                      fontWeight='500'
+                    >
+                      {cell.value}
+                    </Text>
                       )
                     }
                      else if (cell.column.Header === 'Renewal Date') {
                       data = (
-                        <Box>
-                          <Progress
-                            variant='table'
-                            colorScheme='brandScheme'
-                            value={cell.value}
-                          />
-                        </Box>
+                        <Text
+                        color={textColorSecondary}
+                        fontSize='sm'
+                        fontWeight='500'
+                      >
+                        {cell.value}
+                      </Text>
                       )
                     }
                      else if (cell.column.Header === 'Last Active') {
                       data = (
-                        <Box>
-                          <Progress
-                            variant='table'
-                            colorScheme='brandScheme'
-                            value={cell.value}
-                          />
-                        </Box>
+                        <Text
+                          color={textColorSecondary}
+                          fontSize='sm'
+                          fontWeight='500'
+                        >
+                          {cell.value}
+                        </Text>
                       )
                     }
                      else if (cell.column.Header === 'Actions') {
                       data = (
-                        <Box>
-                          <Progress
-                            variant='table'
-                            colorScheme='brandScheme'
-                            value={cell.value}
-                          />
-                        </Box>
+                        <Text
+                        color={textColorSecondary}
+                        fontSize='sm'
+                        fontWeight='500'
+                      >
+                        {cell.value}
+                      </Text>
                       )
                     }
                     return (
