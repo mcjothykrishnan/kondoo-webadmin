@@ -1,5 +1,6 @@
 import {
   Flex,
+  Icon,
   Table,
   Tbody,
   Td,
@@ -21,6 +22,13 @@ import {
 import Card from 'components/card/Card'
 import Menu from 'components/menu/MainMenu'
 import { TableProps } from 'views/admin/default/variables/columnsData'
+import {
+	MdOutlineMoreHoriz,
+	MdOutlinePerson,
+	MdOutlineCardTravel,
+	MdOutlineLightbulb,
+	MdOutlineSettings
+} from 'react-icons/md';
 export default function ColumnsTable (props: TableProps) {
   const { columnsData, tableData } = props
 
@@ -43,10 +51,20 @@ export default function ColumnsTable (props: TableProps) {
     headerGroups,
     page,
     prepareRow,
-    initialState
+    initialState,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize }
   } = tableInstance
   initialState.pageSize = 5
 
+ 
   const textColor = useColorModeValue('secondaryGray.900', 'white')
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100')
   return (
@@ -148,9 +166,12 @@ export default function ColumnsTable (props: TableProps) {
                   }
                    else if (cell.column.Header === 'Actions') {
                     data = (
-                      <Text color={textColor} fontSize='sm' fontWeight='700'>
-                        {cell.value}
-                      </Text>
+                      
+                        <> <Icon as={MdOutlineCardTravel}  w='24px' h='24px' />
+                        <Icon as={MdOutlineMoreHoriz}  w='24px' h='24px' />
+                        <Icon as={MdOutlineMoreHoriz}  w='24px' h='24px' /></>
+                       
+                     
                     )
                   }
                   return (
@@ -170,6 +191,50 @@ export default function ColumnsTable (props: TableProps) {
           })}
         </Tbody>
       </Table>
+      <div className="pagination">
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {"<<"}
+        </button>{" "}
+        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          {"<"}
+        </button>{" "}
+        <button onClick={() => nextPage()} disabled={!canNextPage}>
+          {">"}
+        </button>{" "}
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {">>"}
+        </button>{" "}
+        <span>
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{" "}
+        </span>
+        <span>
+          | Go to page:{" "}
+          <input
+            type="number"
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              gotoPage(page);
+            }}
+            style={{ width: "100px" }}
+          />
+        </span>{" "}
+        <select
+          value={pageSize}
+          onChange={(e) => {
+            setPageSize(Number(e.target.value));
+          }}
+        >
+          {[10, 20, 30, 40, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+      </div>
     </Card>
   )
 }
