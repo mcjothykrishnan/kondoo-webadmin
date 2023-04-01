@@ -26,6 +26,7 @@ import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import { FaEthereum } from 'react-icons/fa';
 import routes from 'routes';
 import { Image } from 'components/image/Image';
+import Router from 'next/router';
 export default function HeaderLinks(props: { secondary: boolean }) {
 	const { secondary } = props;
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -213,6 +214,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 							_focus={{ bg: 'none' }}
 							color='red.400'
 							borderRadius='8px'
+							onClick={()=>(Router.push("/auth/sign-in"))}
 							px='14px'>
 							<Text fontSize='sm'>Log out</Text>
 						</MenuItem>

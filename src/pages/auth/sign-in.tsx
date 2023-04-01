@@ -54,7 +54,6 @@ export default function SignIn() {
   const defaultValues = {};
   const [rowTableData, setRowTableData] = useState([]);
   const loginAdmin = useSelector((state) => state?.login?.login);
-console.log(loginAdmin,"loginAdmin")
   const {
     control,
     handleSubmit,

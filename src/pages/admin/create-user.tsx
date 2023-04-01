@@ -173,7 +173,7 @@ export default function DataTables() {
   }, [userGet, editId]);
   useEffect(() => {
     if (editId) {
-      setBtnTitle("UPDATE");
+      setBtnTitle("Submit & Update");
       reset(editAbleValues);
     }
   }, [editAbleValues]);
@@ -186,7 +186,7 @@ export default function DataTables() {
     console.log(data, "checkDataValue");
 
     dispatch(actions.USER(data));
-  }, [dispatch, userGet]);
+  }, [dispatch, userGet,userEdit]);
 
   useEffect(() => {
     const tempArr = [];
@@ -210,7 +210,7 @@ export default function DataTables() {
       })
     );
     setRowTableData(tempArr);
-  }, [user]);
+  }, [user,userEdit,userCreate,userDelete]);
 
   const handleCancel = () => {
     reset({

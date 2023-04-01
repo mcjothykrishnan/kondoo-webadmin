@@ -1,6 +1,8 @@
 import {
+  Button,
   Flex,
   Icon,
+  MenuButton,
   Table,
   Tbody,
   Td,
@@ -8,42 +10,56 @@ import {
   Th,
   Thead,
   Tr,
-  useColorModeValue
-} from '@chakra-ui/react'
-import React, { useMemo } from 'react'
+  useColorModeValue,
+} from "@chakra-ui/react";
+import React, { useMemo } from "react";
 import {
   useGlobalFilter,
   usePagination,
   useSortBy,
-  useTable
-} from 'react-table'
+  useTable,
+} from "react-table";
 
 // Custom components
-import Card from 'components/card/Card'
-import Menu from 'components/menu/MainMenu'
-import { TableProps } from 'views/admin/default/variables/columnsData'
+import Card from "components/card/Card";
+import Menu from "components/menu/MainMenu";
+import { TableProps } from "views/admin/default/variables/columnsData";
 import {
-	MdOutlineMoreHoriz,
-	MdOutlinePerson,
-	MdOutlineCardTravel,
-	MdOutlineLightbulb,
-	MdOutlineSettings
-} from 'react-icons/md';
-export default function ColumnsTable (props: TableProps) {
-  const { columnsData, tableData,onEdit } = props
+  MdOutlineMoreHoriz,
+  MdOutlinePerson,
+  MdOutlineCardTravel,
+  MdOutlineLightbulb,
+  MdOutlineSettings,
+  MdDelete,
+  MdEdit,
+  MdOutlineRemoveRedEye
+} from "react-icons/md";
+export default function ColumnsTable(props: TableProps) {
+  const { columnsData, tableData, onEdit } = props;
 
-  const columns = useMemo(() => columnsData, [columnsData])
-  const data = useMemo(() => tableData, [tableData])
+  const columns = useMemo(() => columnsData, [columnsData]);
+  const data = useMemo(() => tableData, [tableData]);
+
+  const iconColor = useColorModeValue("brand.500", "white");
+  const bgButton = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
+  const bgHover = useColorModeValue(
+    { bg: "secondaryGray.400" },
+    { bg: "whiteAlpha.50" }
+  );
+  const bgFocus = useColorModeValue(
+    { bg: "secondaryGray.300" },
+    { bg: "whiteAlpha.100" }
+  );
 
   const tableInstance = useTable(
     {
       columns,
-      data
+      data,
     },
     useGlobalFilter,
     useSortBy,
     usePagination
-  )
+  );
 
   const {
     getTableProps,
@@ -60,49 +76,48 @@ export default function ColumnsTable (props: TableProps) {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize }
-  } = tableInstance
-  initialState.pageSize = 5
+    state: { pageIndex, pageSize },
+  } = tableInstance;
+  initialState.pageSize = 5;
 
- 
-  const textColor = useColorModeValue('secondaryGray.900', 'white')
-  const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100')
+  const textColor = useColorModeValue("secondaryGray.900", "white");
+  const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   return (
     <Card
-      flexDirection='column'
-      w='100%'
-      px='0px'
-      overflowX={{ sm: 'scroll', lg: 'hidden' }}
+      flexDirection="column"
+      w="100%"
+      px="0px"
+      overflowX={{ sm: "scroll", lg: "hidden" }}
     >
-      <Flex px='25px' justify='space-between' mb='20px' align='center'>
+      <Flex px="25px" justify="space-between" mb="20px" align="center">
         <Text
           color={textColor}
-          fontSize='22px'
-          fontWeight='700'
-          lineHeight='100%'
+          fontSize="22px"
+          fontWeight="700"
+          lineHeight="100%"
         >
           Users
         </Text>
         <Menu />
       </Flex>
-      <Table {...getTableProps()} variant='simple' color='gray.500' mb='24px'>
+      <Table {...getTableProps()} variant="simple" color="gray.500" mb="24px">
         <Thead>
           {headerGroups.map((headerGroup, index) => (
             <Tr {...headerGroup.getHeaderGroupProps()} key={index}>
               {headerGroup.headers.map((column, index) => (
                 <Th
                   {...column.getHeaderProps(column.getSortByToggleProps())}
-                  pe='10px'
+                  pe="10px"
                   key={index}
                   borderColor={borderColor}
                 >
                   <Flex
-                    justify='space-between'
-                    align='center'
-                    fontSize={{ sm: '10px', lg: '12px' }}
-                    color='gray.400'
+                    justify="space-between"
+                    align="center"
+                    fontSize={{ sm: "10px", lg: "12px" }}
+                    color="gray.400"
                   >
-                    {column.render('Header')}
+                    {column.render("Header")}
                   </Flex>
                 </Th>
               ))}
@@ -111,83 +126,149 @@ export default function ColumnsTable (props: TableProps) {
         </Thead>
         <Tbody {...getTableBodyProps()}>
           {page.map((row, index) => {
-            prepareRow(row)
+            prepareRow(row);
             return (
               <Tr {...row.getRowProps()} key={index}>
                 {row.cells.map((cell, index) => {
-                  let data
-                  if (cell.column.Header === 'S.no') {
+                  let data;
+                  if (cell.column.Header === "S.no") {
                     data = (
-                      <Flex align='center'>
-                        <Text color={textColor} fontSize='sm' fontWeight='700'>
+                      <Flex align="center">
+                        <Text color={textColor} fontSize="sm" fontWeight="700">
                           {cell.value}
                         </Text>
                       </Flex>
-                    )
-                  } else if (cell.column.Header === 'Name') {
+                    );
+                  } else if (cell.column.Header === "Name") {
                     data = (
-                      <Flex align='center'>
+                      <Flex align="center">
                         <Text
-                          me='10px'
+                          me="10px"
                           color={textColor}
-                          fontSize='sm'
-                          fontWeight='700'
+                          fontSize="sm"
+                          fontWeight="700"
                         >
-                          {cell.value}%
+                          {cell.value}
                         </Text>
                       </Flex>
-                    )
-                  } else if (cell.column.Header === 'Email') {
+                    );
+                  } else if (cell.column.Header === "Email") {
                     data = (
-                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                      <Text color={textColor} fontSize="sm" fontWeight="700">
                         {cell.value}
                       </Text>
-                    )
-                  } else if (cell.column.Header === 'Mobile Number') {
+                    );
+                  } else if (cell.column.Header === "Mobile Number") {
                     data = (
-                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                      <Text color={textColor} fontSize="sm" fontWeight="700">
                         {cell.value}
                       </Text>
-                    )
-                  }
-                   else if (cell.column.Header === 'Created Date') {
+                    );
+                  } else if (cell.column.Header === "Created Date") {
                     data = (
-                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                      <Text color={textColor} fontSize="sm" fontWeight="700">
                         {cell.value}
                       </Text>
-                    )
-                  }
-                   else if (cell.column.Header === 'Role') {
+                    );
+                  } else if (cell.column.Header === "Role") {
                     data = (
-                      <Text color={textColor} fontSize='sm' fontWeight='700'>
+                      <Text color={textColor} fontSize="sm" fontWeight="700">
                         {cell.value}
                       </Text>
-                    )
-                  }
-                   else if (cell.column.Header === 'Actions') {
+                    );
+                  } else if (cell.column.Header === "Actions") {
                     data = (
-                      
-                        <> <Icon as={MdOutlineCardTravel}  w='25px' h='25px' marginRight={2} color={'blue.300'} onClick={()=>{onEdit(cell.row.values.id)}} />
-                        <Icon as={MdOutlineLightbulb}  w='25px' h='25px' marginRight={2}/>
-                        <Icon as={MdOutlinePerson}  w='25px' h='25px' marginRight={2} /></>
-                       
-                     
-                    )
+                      <>
+                        <Button
+                          alignItems="center"
+                          justifyContent="center"
+                          marginRight={2}
+                          bg={bgButton}
+                          _hover={bgHover}
+                          _focus={bgFocus}
+                          _active={bgFocus}
+                          disabled
+                          w="30px"
+                          h="30px"
+                          lineHeight="100%"
+                          // onClick={() => {
+                          //   onEdit(cell.row.values.id);
+                          // }}
+                          borderRadius="10px"
+                        >
+                          <Icon
+                            as={MdOutlineRemoveRedEye}
+                            color={iconColor}
+                            w="23px"
+                            h="23px"
+                          />
+                        </Button>
+
+                        
+                        <Button
+                          alignItems="center"
+                          justifyContent="center"
+                          marginRight={2}
+                          bg={bgButton}
+                          _hover={bgHover}
+                          _focus={bgFocus}
+                          _active={bgFocus}
+                          w="30px"
+                          h="30px"
+                          lineHeight="100%"
+                          onClick={() => {
+                            onEdit(cell.row.values.id);
+                          }}
+                          borderRadius="10px"
+                        >
+                          <Icon
+                            as={MdEdit}
+                            color={iconColor}
+                            w="23px"
+                            h="23px"
+                          />
+                        </Button>
+                        <Button
+                          alignItems="center"
+                          justifyContent="center"
+                          marginRight={2}
+                          bg={bgButton}
+                          _hover={bgHover}
+                          _focus={bgFocus}
+                          _active={bgFocus}
+                          w="30px"
+                          h="30px"
+                          lineHeight="100%"
+                          disabled
+                          // onClick={() => {
+                          //   onEdit(cell.row.values.id);
+                          // }}
+                          borderRadius="10px"
+                        >
+                          <Icon
+                            as={MdDelete}
+                            color={iconColor}
+                            w="23px"
+                            h="23px"
+                          />
+                        </Button>
+                      </>
+                    );
                   }
                   return (
                     <Td
                       {...cell.getCellProps()}
                       key={index}
-                      fontSize={{ sm: '14px' }}
-                      minW={{ sm: '150px', md: '200px', lg: 'auto' }}
-                      borderColor='transparent'
+                      fontSize={{ sm: "14px" }}
+                      minW={{ sm: "200px", md: "250px", lg: "auto" }}
+                      borderColor="transparent"
                     >
                       {data}
                     </Td>
-                  )
+                  );
                 })}
               </Tr>
-            )
+            );
           })}
         </Tbody>
       </Table>
@@ -236,5 +317,5 @@ export default function ColumnsTable (props: TableProps) {
         </select>
       </div>
     </Card>
-  )
+  );
 }
