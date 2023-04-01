@@ -89,3 +89,39 @@ export const userEntries = [
 //     // user_type: "",
 //   },
 // ];
+
+// Read All Function Payload
+export const userPayload = {
+  data: {},
+  method: 'get',
+  apiName: 'users/list?skip=0&take=50',
+};
+
+// Read By Id
+export const getUserPayload = {
+  data: {},
+  method: 'GET',
+  apiName: `users/`,
+};
+
+// Update Function Payload
+
+export const editUserPayload = {
+  method: 'PUT',
+  apiName: `users/update/`,
+};
+
+
+// Create Function Payload
+
+export const createUserPayload = {
+  method: 'POST',
+  apiName: `users/create`,
+};
+
+// Delete Function Payload
+
+export const deleteUserPayload = {
+  method: 'DELETE',
+  apiName: `deleteSpeciality/`,
+};

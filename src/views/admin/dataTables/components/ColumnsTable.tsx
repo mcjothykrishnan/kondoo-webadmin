@@ -30,7 +30,7 @@ import {
 	MdOutlineSettings
 } from 'react-icons/md';
 export default function ColumnsTable (props: TableProps) {
-  const { columnsData, tableData } = props
+  const { columnsData, tableData,onEdit } = props
 
   const columns = useMemo(() => columnsData, [columnsData])
   const data = useMemo(() => tableData, [tableData])
@@ -167,9 +167,9 @@ export default function ColumnsTable (props: TableProps) {
                    else if (cell.column.Header === 'Actions') {
                     data = (
                       
-                        <> <Icon as={MdOutlineCardTravel}  w='24px' h='24px' />
-                        <Icon as={MdOutlineMoreHoriz}  w='24px' h='24px' />
-                        <Icon as={MdOutlineMoreHoriz}  w='24px' h='24px' /></>
+                        <> <Icon as={MdOutlineCardTravel}  w='25px' h='25px' marginRight={2} color={'blue.300'} onClick={()=>{onEdit(cell.row.values.id)}} />
+                        <Icon as={MdOutlineLightbulb}  w='25px' h='25px' marginRight={2}/>
+                        <Icon as={MdOutlinePerson}  w='25px' h='25px' marginRight={2} /></>
                        
                      
                     )

@@ -107,10 +107,10 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 					</Flex>
 					<Flex flexDirection='column'>
 						<MenuItem _hover={{ bg: 'none' }} _focus={{ bg: 'none' }} px='0' borderRadius='8px' mb='10px'>
-							<ItemContent info='Horizon UI Dashboard PRO' />
+							<ItemContent info='New Generation Game' />
 						</MenuItem>
 						<MenuItem _hover={{ bg: 'none' }} _focus={{ bg: 'none' }} px='0' borderRadius='8px' mb='10px'>
-							<ItemContent info='Horizon Design System Free' />
+							<ItemContent info='Vritual Game' />
 						</MenuItem>
 					</Flex>
 				</MenuList>
@@ -134,7 +134,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 					<Flex flexDirection='column'>
 						<Link w='100%' href='https://horizon-ui.com/pro'>
 							<Button w='100%' h='44px' mb='10px' variant='brand'>
-								Buy Horizon UI PRO
+								Buy Kondoo PRO
 							</Button>
 						</Link>
 						<Link w='100%' href='https://horizon-ui.com/documentation/docs/introduction'>
@@ -150,7 +150,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 						</Link>
 						<Link w='100%' href='https://github.com/horizon-ui/horizon-ui-chakra-nextjs'>
 							<Button w='100%' h='44px' variant='no-hover' color={textColor} bg='transparent'>
-								Try Horizon Free
+								Try Kondoo Free
 							</Button>
 						</Link>
 					</Flex>

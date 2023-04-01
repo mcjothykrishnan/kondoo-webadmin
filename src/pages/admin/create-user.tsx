@@ -38,7 +38,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
 import actions from "../../actions/index";
-import { userEntries } from "../../entries/createUserEntries";
+import * as USERENTRIES from "../../entries/createUserEntries";
 import reactSelect from "react-select";
 export default function DataTables() {
   // Chakra color mode
@@ -61,21 +61,26 @@ export default function DataTables() {
   const handleClick = () => setShow(!show);
   //redux integration
   const dispatch = useDispatch();
-  const defaultValues = {
-
-  };
+  const defaultValues = {};
   const [rowTableData, setRowTableData] = useState([]);
-  const { userGet, user } = useSelector((state) => state?.user);
-
+  const { user, userGet, userEdit, userCreate, userDelete } = useSelector(
+    (state) => state?.user
+  );
+  const [entries, setEntries] = useState(USERENTRIES.userEntries);
+  const [editId, setEditId] = useState();
+  const [editAbleValues, setEditAbleValues] = useState({});
+  const [btnTitle, setBtnTitle] = useState("Submit");
   console.log(user, "uservalue");
   console.log(userGet, "userGet");
+  console.log(editId, "editId");
+
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm({
-    defaultValues,
+    defaultValues:editAbleValues,
   });
 
   function onSubmit(data1) {
@@ -83,14 +88,14 @@ export default function DataTables() {
     console.log(submitData, "checkData");
     const formData = {
       first_name: submitData.first_name,
-      last_name: (submitData.last_name = "yhyhyhr"),
+      last_name: (submitData.last_name = ""),
       email: submitData.email,
       phone_number: (submitData.phone_number = parseInt(
         submitData.phone_number
       )),
       user_role: submitData.user_role,
       password: submitData.password,
-      login_method: submitData.login_method="google",
+      login_method: (submitData.login_method = "google"),
     };
     //  const phone= parseInt(data1?.phone_number)
 
@@ -102,13 +107,25 @@ export default function DataTables() {
     // formData.append('user_role', data1?.user_role);
     // formData.append('password', data1?.password);
     // formData.append('status', data1?.status === 'Active' ? 1 : 0);
-    const data = {
-      data: formData,
-      method: "post",
-      apiName: "users/create",
-    };
 
-    dispatch(actions.USER_CREATE(data));
+    if (editId) {
+      const data = {
+        data: formData,
+        method: "PUT",
+        apiName: `users/update/`,
+        id: editId,
+      };
+
+      dispatch(actions.USER_EDIT(data));
+    } else {
+      const data = {
+        data: formData,
+        method: "post",
+        apiName: "users/create",
+      };
+
+      dispatch(actions.USER_CREATE(data));
+    }
     reset({
       user_id: "",
       first_name: "",
@@ -122,8 +139,44 @@ export default function DataTables() {
       user_role: "",
       is_email_verified: "",
     });
+    setEditId("");
+    setBtnTitle("SUBMIT");
   }
 
+  useEffect(() => {
+    if (editId) {
+      const data = {
+        data: {},
+        method: "GET",
+        apiName: `users/`,
+        id: editId,
+      };
+
+      dispatch(actions.USER_GET(data));
+    }
+  }, [editId]);
+  useEffect(() => {
+    if (editId) {
+      console.log(editId, "editId");
+     
+        setEditAbleValues({
+          
+         
+          first_name: userGet?.data?.first_name,
+          email: userGet?.data?.email,
+          phone_number: userGet?.data?.phone_number,
+          user_role:userGet?.data?.user_role,
+          password: userGet?.data?.password,
+        });
+      
+    }
+  }, [userGet, editId]);
+  useEffect(() => {
+    if (editId) {
+      setBtnTitle("UPDATE");
+      reset(editAbleValues);
+    }
+  }, [editAbleValues]);
   useEffect(() => {
     const data = {
       data: {},
@@ -160,7 +213,15 @@ export default function DataTables() {
   }, [user]);
 
   const handleCancel = () => {
-    reset(defaultValues);
+    reset({
+      first_name:"",
+      email: "",
+      phone_number: "",
+      user_role:"",
+      password:"",
+    });
+    setBtnTitle("SUBMIT");
+    setEditId();
   };
   return (
     <AdminLayout>
@@ -178,7 +239,7 @@ export default function DataTables() {
               columns={{ sm: 1, md: 3 }}
               spacing={{ base: "20px", xl: "20px" }}
             >
-              {userEntries?.map((keyValue, key) => (
+              {entries?.map((keyValue, key) => (
                 <Grid item md={keyValue.breakpoint} sm={12} xs={12} key={key}>
                   <Controller
                     name={keyValue.name}
@@ -260,7 +321,6 @@ export default function DataTables() {
                                 />
                               </InputRightElement>
                             </InputGroup>
-                         
                           </>
                         )}
                         {keyValue?.isDropdownInput && (
@@ -277,20 +337,19 @@ export default function DataTables() {
                               <Text color={brandStars}>*</Text>
                             </FormLabel>
                             <Select
-                                isRequired={true}
-                                variant="auth"
-                                fontSize="sm"
-                                ms={{ base: "0px", md: "0px" }}
-                                placeholder={keyValue.placeholder}
-                                value={value}
-                                onChange={onChange}
-                                mb="24px"
-                                fontWeight="500"
-                                size="md"
+                              isRequired={true}
+                              variant="auth"
+                              fontSize="sm"
+                              ms={{ base: "0px", md: "0px" }}
+                              placeholder={keyValue.placeholder}
+                              value={value}
+                              onChange={onChange}
+                              mb="24px"
+                              fontWeight="500"
+                              size="md"
                             >
                               <option value="admin">Admin</option>
                               <option value="player">Player</option>
-                              
                             </Select>
                             {/* <Select
                               id="balance"
@@ -363,7 +422,7 @@ export default function DataTables() {
                   size="sm"
                   onClick={handleSubmit(onSubmit)}
                 >
-                  Submit
+                  {btnTitle}
                 </Button>
                 <Button
                   fontSize="sm"
@@ -398,6 +457,7 @@ export default function DataTables() {
             columnsData={columnsDataColumns}
             // tableData={tableDataColumns as unknown as TableData[]}
             tableData={rowTableData as unknown as TableData[]}
+            onEdit={(id) => setEditId(id)}
           />
         </SimpleGrid>
       </Box>

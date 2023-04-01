@@ -66,4 +66,9 @@ export type TableData = Column<{
 export type TableProps = {
   columnsData: ColumnData;
   tableData: TableData[];
+  actionItem: any;
+  editOpen: any;
+  action: any;
+  onEdit:any;
+
 };

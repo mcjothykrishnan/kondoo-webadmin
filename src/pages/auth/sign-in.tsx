@@ -79,6 +79,7 @@ console.log(loginAdmin,"loginAdmin")
     };
 
     dispatch(actions.LOGIN_ADMIN(data));
+    // setNav();
     reset({
       email: "",
       password: "",

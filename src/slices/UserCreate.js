@@ -2,20 +2,24 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-expressions */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { defaultReject, defaultState } from '../constants/commonSchema';
-import { fetchData } from '../helpers';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { defaultReject, defaultState } from "../constants/commonSchema";
+import { fetchData } from "../helpers";
 
 const USER = createAsyncThunk(
-  'user/user',
+  "user/user",
   // eslint-disable-next-line default-param-last
   async (
     // eslint-disable-next-line default-param-last
     payload = {},
-    { rejectWithValue },
+    { rejectWithValue }
   ) => {
     try {
-      const data = await fetchData(payload?.data, payload?.method, payload?.apiName);
+      const data = await fetchData(
+        payload?.data,
+        payload?.method,
+        payload?.apiName
+      );
       return {
         ...defaultState.List,
         message: data?.data.Message,
@@ -27,20 +31,24 @@ const USER = createAsyncThunk(
         message: error.message,
       });
     }
-  },
+  }
 );
 
 const USER_CREATE = createAsyncThunk(
-  'user/userCreate',
+  "user/userCreate",
   // eslint-disable-next-line default-param-last
   async (
     // eslint-disable-next-line default-param-last
     payload = {},
-    { rejectWithValue },
+    { rejectWithValue }
   ) => {
     try {
-      console.log(payload, 'createData');
-      const data = await fetchData(payload?.data, payload?.method, payload?.apiName);
+      console.log(payload, "createData");
+      const data = await fetchData(
+        payload?.data,
+        payload?.method,
+        payload?.apiName
+      );
       return {
         ...defaultState.List,
         message: data?.data.Message,
@@ -52,71 +60,79 @@ const USER_CREATE = createAsyncThunk(
         message: error.message,
       });
     }
-  },
+  }
 );
-// const USER_EDIT = createAsyncThunk(
-//   'lab/labEdit',
-//   // eslint-disable-next-line default-param-last
-//   async (
-//     // eslint-disable-next-line default-param-last
-//     payload = {},
-//     { rejectWithValue },
-//   ) => {
-//     try {
-//       const data = await fetchData(payload?.data, payload?.method, `${payload?.apiName}${payload?.id}`);
-//       return {
-//         ...defaultState.List,
-//         message: data?.data.Message,
-//         data: data?.data?.data,
-//       };
-//     } catch (error) {
-//       return rejectWithValue({
-//         ...defaultReject.List,
-//         message: error.message,
-//       });
-//     }
-//   },
-// );
-
-// const USER_DELETE = createAsyncThunk(
-//   'user/userDelete',
-//   // eslint-disable-next-line default-param-last
-//   async (
-//     // eslint-disable-next-line default-param-last
-//     payload = {},
-//     { rejectWithValue },
-//   ) => {
-//     try {
-//       const data = await fetchData(payload?.data, payload?.method, `${payload?.apiName}${payload?.id}`);
-//       return {
-//         ...defaultState.List,
-//         message: data?.data.Message,
-//         data: data?.data?.data,
-//       };
-//     } catch (error) {
-//       return rejectWithValue({
-//         ...defaultReject.List,
-//         message: error.message,
-//       });
-//     }
-//   },
-// );
-
-const USER_GET = createAsyncThunk(
-  'user/userGet',
+const USER_EDIT = createAsyncThunk(
+  "user/userEdit",
   // eslint-disable-next-line default-param-last
   async (
     // eslint-disable-next-line default-param-last
     payload = {},
-    { rejectWithValue },
+    { rejectWithValue }
   ) => {
     try {
-      console.log(payload, 'getData');
+      const data = await fetchData(
+        payload?.data,
+        payload?.method,
+        `${payload?.apiName}${payload?.id}`
+      );
+      return {
+        ...defaultState.List,
+        message: data?.data.Message,
+        data: data?.data?.data,
+      };
+    } catch (error) {
+      return rejectWithValue({
+        ...defaultReject.List,
+        message: error.message,
+      });
+    }
+  }
+);
+
+const USER_DELETE = createAsyncThunk(
+  "user/userDelete",
+  // eslint-disable-next-line default-param-last
+  async (
+    // eslint-disable-next-line default-param-last
+    payload = {},
+    { rejectWithValue }
+  ) => {
+    try {
+      const data = await fetchData(
+        payload?.data,
+        payload?.method,
+        `${payload?.apiName}${payload?.id}`
+      );
+      return {
+        ...defaultState.List,
+        message: data?.data.Message,
+        data: data?.data?.data,
+      };
+    } catch (error) {
+      return rejectWithValue({
+        ...defaultReject.List,
+        message: error.message,
+      });
+    }
+  }
+);
+
+const USER_GET = createAsyncThunk(
+  "user/userGet",
+  // eslint-disable-next-line default-param-last
+  async (
+    // eslint-disable-next-line default-param-last
+    payload = {},
+    { rejectWithValue }
+  ) => {
+    try {
+      console.log(payload, "getData");
 
       const data = await fetchData(
         payload?.data,
         payload?.method,
-        `${payload?.apiName}${payload?.id}`,
+        `${payload?.apiName}${payload?.id}`
         // payload?.apiName
       );
       return {
@@ -130,73 +146,103 @@ const USER_GET = createAsyncThunk(
         message: error.message,
       });
     }
-  },
+  }
 );
 
 const userSlice = createSlice({
-  name: 'userSlice',
+  name: "userSlice",
   initialState: {
     user: {
       ...defaultState.List,
     },
-    // userEdit: {
-    //   ...defaultState.List,
-    // },
+    userEdit: {
+      ...defaultState.List,
+    },
     userCreate: {
       ...defaultState.List,
     },
-    // userDelete: {
-    //   ...defaultState.List,
-    // },
+    userDelete: {
+      ...defaultState.List,
+    },
     userGet: {
       ...defaultState.List,
     },
   },
   extraReducers: {
     [USER.fulfilled]: (state, action) => {
-      (state.user.loading = false), (state.user.error = false), (state.user = action.payload);
+      (state.user.loading = false),
+        (state.user.error = false),
+        (state.user = action.payload);
     },
     [USER.pending]: (state, action) => {
-      (state.user.loading = true), (state.user.error = false), (state.user.loading = true);
+      (state.user.loading = true),
+        (state.user.error = false),
+        (state.user.loading = true);
     },
     [USER.rejected]: (state, action) => {
-      (state.user.loading = false), (state.user.error = true), (state.user = action.payload);
+      (state.user.loading = false),
+        (state.user.error = true),
+        (state.user = action.payload);
     },
     [USER_CREATE.fulfilled]: (state, action) => {
-      (state.userCreate.loading = false), (state.userCreate.error = false), (state.userCreate = action.payload);
+      (state.userCreate.loading = false),
+        (state.userCreate.error = false),
+        (state.userCreate = action.payload);
     },
     [USER_CREATE.pending]: (state, action) => {
-      (state.userCreate.loading = true), (state.userCreate.error = false), (state.userCreate.loading = true);
+      (state.userCreate.loading = true),
+        (state.userCreate.error = false),
+        (state.userCreate.loading = true);
     },
     [USER_CREATE.rejected]: (state, action) => {
-      (state.userCreate.loading = false), (state.userCreate.error = true), (state.userCreate = action.payload);
+      (state.userCreate.loading = false),
+        (state.userCreate.error = true),
+        (state.userCreate = action.payload);
     },
-    // [LAB_EDIT.fulfilled]: (state, action) => {
-    //   (state.labEdit.loading = false), (state.labEdit.error = false), (state.labEdit = action.payload);
-    // },
-    // [LAB_EDIT.pending]: (state, action) => {
-    //   (state.labEdit.loading = true), (state.labEdit.error = false), (state.labEdit.loading = true);
-    // },
-    // [LAB_EDIT.rejected]: (state, action) => {
-    //   (state.labEdit.loading = false), (state.labEdit.error = true), (state.labEdit = action.payload);
-    // },
-    // [USER_DELETE.fulfilled]: (state, action) => {
-    //   (state.userDelete.loading = false), (state.userDelete.error = false), (state.userDelete = action.payload);
-    // },
-    // [USER_DELETE.pending]: (state, action) => {
-    //   (state.userDelete.loading = true), (state.userDelete.error = false), (state.userDelete.loading = true);
-    // },
-    // [USER_DELETE.rejected]: (state, action) => {
-    //   (state.userDelete.loading = false), (state.userDelete.error = true), (state.userDelete = action.payload);
-    // },
+    [USER_EDIT.fulfilled]: (state, action) => {
+      (state.userEdit.loading = false),
+        (state.userEdit.error = false),
+        (state.userEdit = action.payload);
+    },
+    [USER_EDIT.pending]: (state, action) => {
+      (state.userEdit.loading = true),
+        (state.userEdit.error = false),
+        (state.userEdit.loading = true);
+    },
+    [USER_EDIT.rejected]: (state, action) => {
+      (state.userEdit.loading = false),
+        (state.userEdit.error = true),
+        (state.userEdit = action.payload);
+    },
+    [USER_DELETE.fulfilled]: (state, action) => {
+      (state.userDelete.loading = false),
+        (state.userDelete.error = false),
+        (state.userDelete = action.payload);
+    },
+    [USER_DELETE.pending]: (state, action) => {
+      (state.userDelete.loading = true),
+        (state.userDelete.error = false),
+        (state.userDelete.loading = true);
+    },
+    [USER_DELETE.rejected]: (state, action) => {
+      (state.userDelete.loading = false),
+        (state.userDelete.error = true),
+        (state.userDelete = action.payload);
+    },
     [USER_GET.fulfilled]: (state, action) => {
-      (state.userGet.loading = false), (state.userGet.error = false), (state.userGet = action.payload);
+      (state.userGet.loading = false),
+        (state.userGet.error = false),
+        (state.userGet = action.payload);
     },
     [USER_GET.pending]: (state, action) => {
-      (state.userGet.loading = true), (state.userGet.error = false), (state.userGet.loading = true);
+      (state.userGet.loading = true),
+        (state.userGet.error = false),
+        (state.userGet.loading = true);
     },
     [USER_GET.rejected]: (state, action) => {
-      (state.userGet.loading = false), (state.userGet.error = true), (state.userGet = action.payload);
+      (state.userGet.loading = false),
+        (state.userGet.error = true),
+        (state.userGet = action.payload);
     },
   },
 });
@@ -204,8 +250,8 @@ const userSlice = createSlice({
 const userAction = {
   USER,
   USER_CREATE,
-  //   LAB_EDIT,
-  // USER_DELETE,
+  USER_EDIT,
+  USER_DELETE,
   USER_GET,
 };
 export { userAction };
