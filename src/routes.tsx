@@ -9,7 +9,9 @@ import {
 
 // Admin Imports
 import MainDashboard from 'pages/admin/default'
-import NFTMarketplace from 'pages/admin/nft-marketplace'
+// import NFTMarketplace from 'pages/admin/nft-marketplace'
+import Players from 'pages/admin/players'
+import CreateUser from 'pages/admin/create-user'
 import Profile from 'pages/admin/profile'
 import DataTables from 'pages/admin/data-tables'
 import RTL from 'pages/rtl/rtl-default'
@@ -38,7 +40,7 @@ const routes: IRoute[] = [
         color='inherit'
       />
     ),
-    component: NFTMarketplace,
+    component: CreateUser,
     secondary: true
   },
   {
@@ -53,7 +55,7 @@ const routes: IRoute[] = [
         color='inherit'
       />
     ),
-    component: NFTMarketplace,
+    component: Players,
     secondary: true
   },
   // {

@@ -47,6 +47,8 @@ export default function DataTables() {
   const textColorDetails = useColorModeValue("navy.700", "secondaryGray.600");
   const textColorBrand = useColorModeValue("brand.500", "white");
   const brandStars = useColorModeValue("brand.500", "brand.400");
+  const errCol = useColorModeValue("red.500", "red.400");
+
   const googleBg = useColorModeValue("secondaryGray.300", "whiteAlpha.200");
   const googleText = useColorModeValue("navy.700", "white");
   const googleHover = useColorModeValue(
@@ -138,7 +140,9 @@ export default function DataTables() {
       login_method: "",
       user_role: "",
       is_email_verified: "",
+      confirmPassword:"",
     });
+    
     setEditId("");
     setBtnTitle("SUBMIT");
   }
@@ -219,6 +223,7 @@ export default function DataTables() {
       phone_number: "",
       user_role:"",
       password:"",
+      confirmPassword:""
     });
     setBtnTitle("SUBMIT");
     setEditId();
@@ -273,7 +278,7 @@ export default function DataTables() {
                               placeholder={keyValue.placeholder}
                               value={value}
                               onChange={onChange}
-                              mb="24px"
+                              // mb="24px"
                               fontWeight="500"
                               size="md"
                             />
@@ -297,7 +302,7 @@ export default function DataTables() {
                                 isRequired={true}
                                 fontSize="sm"
                                 placeholder={keyValue.placeholder}
-                                mb="24px"
+                                // mb="24px"
                                 size="md"
                                 value={value}
                                 onChange={onChange}
@@ -344,7 +349,7 @@ export default function DataTables() {
                               placeholder={keyValue.placeholder}
                               value={value}
                               onChange={onChange}
-                              mb="24px"
+                              // mb="24px"
                               fontWeight="500"
                               size="md"
                             >
@@ -392,16 +397,16 @@ export default function DataTables() {
                     )}
                   />
                   {errors && errors[keyValue?.name]?.type === "required" && (
-                    <div>
+                    <Text color={errCol}>
                       {/* <CustomTypography text={`${keyValue?.label} is Required`} type="error" /> */}
                       {`${keyValue?.label} is Required`}
-                    </div>
+                    </Text>
                   )}
                   {errors && errors[keyValue?.name]?.type === "pattern" && (
-                    <div>
+                    <Text color={errCol}>
                       {/* <CustomTypography text={`${keyValue?.label} is Invalid`} type="error" /> */}
-                      {`${keyValue?.label} is Invalid`}
-                    </div>
+                      {`${keyValue?.validation_error_message}`}
+                    </Text>
                   )}
                 </Grid>
               ))}

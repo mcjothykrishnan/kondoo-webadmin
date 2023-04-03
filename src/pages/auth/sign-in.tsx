@@ -39,6 +39,7 @@ export default function SignIn() {
   const brandStars = useColorModeValue("brand.500", "brand.400");
   const googleBg = useColorModeValue("secondaryGray.300", "whiteAlpha.200");
   const googleText = useColorModeValue("navy.700", "white");
+  const errCol = useColorModeValue("red.500", "red.400");
   const googleHover = useColorModeValue(
     { bg: "gray.200" },
     { bg: "whiteAlpha.300" }
@@ -174,7 +175,7 @@ export default function SignIn() {
                             placeholder={keyValue.placeholder}
                             value={value}
                             onChange={onChange}
-                            mb="24px"
+                            // mb="24px"
                             fontWeight="500"
                             size="lg"
                           />
@@ -199,7 +200,7 @@ export default function SignIn() {
                               placeholder={keyValue.placeholder}
                               value={value}
                               onChange={onChange}
-                              mb="24px"
+                              // mb="24px"
                               size="lg"
                               type={show ? "text" : "password"}
                               variant="auth"
@@ -225,21 +226,21 @@ export default function SignIn() {
                   )}
                 />
                 {errors && errors[keyValue?.name]?.type === "required" && (
-                  <div>
+                  <Text color={errCol}>
                     {/* <CustomTypography text={`${keyValue?.label} is Required`} type="error" /> */}
                     {`${keyValue?.label} is Required`}
-                  </div>
+                  </Text>
                 )}
                 {errors && errors[keyValue?.name]?.type === "pattern" && (
-                  <div>
+                  <Text color={errCol}>
                     {/* <CustomTypography text={`${keyValue?.label} is Invalid`} type="error" /> */}
                     {`${keyValue?.label} is Invalid`}
-                  </div>
+                  </Text>
                 )}
               </Grid>
             ))}
 
-            <Flex justifyContent="space-between" align="center" mb="24px">
+            <Flex justifyContent="space-between" align="center" mb="24px" mt="10px">
               <FormControl display="flex" alignItems="center">
                 <Checkbox
                   id="remember-login"
