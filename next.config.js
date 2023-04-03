@@ -8,6 +8,10 @@ const nextConfig = {
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: true,
+
+    output: "export",
+    distDir: "dist",
+    trailingSlash: true,
   },
 };
 
