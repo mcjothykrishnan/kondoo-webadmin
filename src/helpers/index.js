@@ -21,13 +21,13 @@ const returnException = ({ error, rejectWithValue }) =>
   });
 // const Notify = UseNotification();
 const fetchData = async (input, method, apiName) => {
-  const token = localStorage.getItem('LoginChecker');
+  const token =localStorage.getItem('token');
   const res = Axios({
     method,
     url: `${adminUrl}${apiName}`,
     data: input,
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
   }).catch((err) => {
     // eslint-disable-next-line no-alert

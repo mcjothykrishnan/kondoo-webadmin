@@ -73,6 +73,25 @@ export const columnsDataColumns: Columns = [
     accessor: "action",
   },
 ];
+export const columnUserRole: Columns = [
+  {
+    Header: "S.no",
+    accessor: "id",
+  },
+ 
+  {
+    Header: "Created Date",
+    accessor: "createdAt",
+  },
+  {
+    Header: "Role",
+    accessor: "user_role",
+  },
+  {
+    Header: "Actions",
+    accessor: "action",
+  },
+];
 
 export const columnsDataComplex: Columns = [
   {

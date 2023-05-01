@@ -1,25 +1,4 @@
-/*!
-  _   _  ___  ____  ___ ________  _   _   _   _ ___   
- | | | |/ _ \|  _ \|_ _|__  / _ \| \ | | | | | |_ _| 
- | |_| | | | | |_) || |  / / | | |  \| | | | | || | 
- |  _  | |_| |  _ < | | / /| |_| | |\  | | |_| || |
- |_| |_|\___/|_| \_\___/____\___/|_| \_|  \___/|___|
-                                                                                                                                                                                                                                                                                                                                       
-=========================================================
-* Horizon UI - v1.1.0
-=========================================================
-
-* Product Page: https://www.horizon-ui.com/
-* Copyright 2022 Horizon UI (https://www.horizon-ui.com/)
-
-* Designed and Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
+import React from 'react'
 import {
   Avatar,
   Box,
@@ -59,23 +38,40 @@ import { isWindowAvailable } from 'utils/navigation'
 import AdminLayout from 'layouts/admin'
 import { Image } from 'components/image/Image'
 import Usa from 'img/dashboards/usa.png'
-
+import Router from 'next/router'
 export default function UserReports () {
   // Chakra Color Mode
 
   const brandColor = useColorModeValue('brand.500', 'white')
   const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100')
 
+
+
   return (
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <>
-          <SimpleGrid
+        <> 
+        <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} gap='20px'  mb='20px'>
+        <PieCard />
+        <PieCard />
+        <SimpleGrid
             columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }}
             gap='20px'
             mb='20px'
-          >
-            <MiniStatistics
+          > <MiniStatistics  name='Revenue' value='$200k' />
+          <MiniStatistics  name='MRR' value='$3,500' />
+          <MiniStatistics  name='CLV' value='$157' />
+          <MiniStatistics  name='ARPU' value='$5' />
+          <MiniStatistics  name='Retention' value='67 Days' />
+          <MiniStatistics  name='PQLs' value='850' />
+            </SimpleGrid>
+            </SimpleGrid>
+          {/* <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }}
+            gap='20px'
+            mb='20px'
+          > */}
+            {/* <MiniStatistics
               startContent={
                 <IconBox
                   w='56px'
@@ -93,8 +89,8 @@ export default function UserReports () {
               }
               name='Earnings'
               value='$350.4'
-            />
-            <MiniStatistics
+            /> */}
+            {/* <MiniStatistics
               startContent={
                 <IconBox
                   w='56px'
@@ -112,9 +108,14 @@ export default function UserReports () {
               }
               name='Spend this month'
               value='$642.39'
-            />
-            <MiniStatistics growth='+23%' name='Sales' value='$574.34' />
-            <MiniStatistics
+            /> */}
+            {/* <MiniStatistics growth='+23%' name='Revenue' value='$200k' />
+            <MiniStatistics growth='+23%' name='MRR' value='$3,500' />
+            <MiniStatistics growth='+23%' name='CLV' value='$157' />
+            <MiniStatistics growth='+23%' name='ARPU' value='$5' />
+            <MiniStatistics growth='+23%' name='Retention' value='67 Days' />
+            <MiniStatistics growth='+23%' name='PQLs' value='850' /> */}
+            {/* <MiniStatistics
               endContent={
                 <Flex me='-16px' mt='10px'>
                   <FormLabel htmlFor='balance'>
@@ -137,8 +138,8 @@ export default function UserReports () {
               }
               name='Your balance'
               value='$1,000'
-            />
-            <MiniStatistics
+            /> */}
+            {/* <MiniStatistics
               startContent={
                 <IconBox
                   w='56px'
@@ -149,8 +150,8 @@ export default function UserReports () {
               }
               name='New Tasks'
               value='154'
-            />
-            <MiniStatistics
+            /> */}
+            {/* <MiniStatistics
               startContent={
                 <IconBox
                   w='56px'
@@ -168,21 +169,21 @@ export default function UserReports () {
               }
               name='Total Projects'
               value='2935'
-            />
-          </SimpleGrid>
+            /> */}
+          {/* </SimpleGrid> */}
 
           <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>
             <TotalSpent />
             <WeeklyRevenue />
           </SimpleGrid>
           <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
-            <CheckTable
+            {/* <CheckTable
               columnsData={columnsDataCheck}
               tableData={(tableDataCheck as unknown) as TableData[]}
-            />
+            /> */}
             <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
               <DailyTraffic />
-              <PieCard />
+              {/* <PieCard /> */}
             </SimpleGrid>
           </SimpleGrid>
           <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap='20px' mb='20px'>
@@ -192,7 +193,7 @@ export default function UserReports () {
             />
             <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
               <Tasks />
-              <MiniCalendar h='100%' minW='100%' selectRange={false} />
+              {/* <MiniCalendar h='100%' minW='100%' selectRange={false} /> */}
             </SimpleGrid>
           </SimpleGrid>
         </>

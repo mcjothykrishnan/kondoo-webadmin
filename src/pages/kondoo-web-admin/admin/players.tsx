@@ -7,7 +7,7 @@ import { tableColumnsTopCreators } from "views/admin/marketplace/variables/table
 import AdminLayout from "layouts/admin";
 import { TableData } from "views/admin/default/variables/columnsData";
 import { useDispatch, useSelector } from "react-redux";
-import actions from "../../actions/index";
+import actions from "../../../actions/index";
 export default function NftMarketplace() {
   // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
@@ -24,7 +24,7 @@ export default function NftMarketplace() {
     const data = {
       data: {},
       method: "get",
-      apiName: "users/list?skip=0&take=50",
+      apiName: "users/list?skip=0&take=50&type=1",
     };
     console.log(data, "checkDataValue");
 

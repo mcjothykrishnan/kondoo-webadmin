@@ -5,6 +5,16 @@ import Brand from 'components/sidebar/components/Brand';
 import Links from 'components/sidebar/components/Links';
 import SidebarCard from 'components/sidebar/components/SidebarCard';
 import { IRoute } from 'types/navigation';
+import {
+	RiHome4Line,
+	RiTeamLine,
+	RiCalendar2Line,
+	RiFolder2Line,
+	RiUserFollowLine,
+	RiPlantLine,
+	RiStackLine,
+	RiUserUnfollowLine
+  } from "react-icons/ri";
 
 // FUNCTIONS
 
@@ -16,7 +26,7 @@ function SidebarContent(props: SidebarContentProps) {
 	const { routes } = props;
 	// SIDEBAR
 	return (
-		<Flex direction='column' height='100%' pt='25px' borderRadius='30px'>
+		<Flex direction='column' height='100%' pt='25px' borderRadius='30px' overflowY="scroll" scrollPadding="0">
 			<Brand />
 			<Stack direction='column' mt='8px' mb='auto'>
 				<Box ps='20px' pe={{ lg: '16px', '2xl': '16px' }}>

@@ -18,7 +18,7 @@ import { ItemContent } from 'components/menu/ItemContent';
 import { SearchBar } from 'components/navbar/searchBar/SearchBar';
 import { SidebarResponsive } from 'components/sidebar/Sidebar';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React,{useEffect} from 'react';
 // Assets
 import navImage from 'img/layout/Navbar.png';
 import { MdNotificationsNone, MdInfoOutline } from 'react-icons/md';
@@ -27,6 +27,8 @@ import { FaEthereum } from 'react-icons/fa';
 import routes from 'routes';
 import { Image } from 'components/image/Image';
 import Router from 'next/router';
+import { useDispatch, useSelector } from "react-redux";
+import actions from "../../actions/index";
 export default function HeaderLinks(props: { secondary: boolean }) {
 	const { secondary } = props;
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -44,6 +46,34 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 		'14px 17px 40px 4px rgba(112, 144, 176, 0.06)'
 	);
 	const borderButton = useColorModeValue('secondaryGray.500', 'whiteAlpha.200');
+	const { userGet} = useSelector(
+		(state) => state?.user
+	  );
+	    const dispatch = useDispatch();
+console.log(userGet,"userGet")
+	const onLogout = ()=>{
+	
+		localStorage.clear()
+		window.location.reload()
+		Router.push("/auth/sign-in")
+
+	}
+	const Logid = parseInt(localStorage.getItem("LoginChecker"))
+	console.log(Logid,"Logid")
+			 useEffect(() => {
+    if (Logid) {
+      const data = {
+        data: {},
+        method: "GET",
+        apiName: `users/`,
+        id: Logid,
+		
+      };
+console.log(data,"dataid")
+      dispatch(actions.USER_GET(data));
+    }
+  }, [Logid]);
+
 	return (
 		<Flex
 			w={{ sm: '100%', md: 'auto' }}
@@ -54,7 +84,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 			p='10px'
 			borderRadius='30px'
 			boxShadow={shadow}>
-			<SearchBar
+			{/* <SearchBar
 				mb={() => {
 					if (secondary) {
 						return { base: '10px', md: 'unset' };
@@ -63,8 +93,8 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 				}}
 				me='10px'
 				borderRadius='30px'
-			/>
-			<Flex
+			/> */}
+			{/* <Flex
 				bg={ethBg}
 				display={secondary ? 'flex' : 'none'}
 				borderRadius='30px'
@@ -82,9 +112,9 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 						ETH
 					</Text>
 				</Text>
-			</Flex>
+			</Flex> */}
 			<SidebarResponsive routes={routes} />
-			<Menu>
+			{/* <Menu>
 				<MenuButton p='0px'>
 					<Icon mt='6px' as={MdNotificationsNone} color={navbarIcon} w='18px' h='18px' me='10px' />
 				</MenuButton>
@@ -156,7 +186,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 						</Link>
 					</Flex>
 				</MenuList>
-			</Menu>
+			</Menu> */}
 
 			<Button
 				variant='no-hover'
@@ -180,7 +210,8 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 					<Avatar
 						_hover={{ cursor: 'pointer' }}
 						color='white'
-						name='Adela Parkson'
+						// name={userGet.data?.first_name}
+						name={`${userGet.data?.first_name}${" "}${userGet.data?.last_name}`}
 						bg='#11047A'
 						size='sm'
 						w='40px'
@@ -199,22 +230,22 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 							fontSize='sm'
 							fontWeight='700'
 							color={textColor}>
-							👋&nbsp; Hey, Adela
+							👋&nbsp; Hey, {userGet.data?.first_name}
 						</Text>
 					</Flex>
 					<Flex flexDirection='column' p='10px'>
 						<MenuItem _hover={{ bg: 'none' }} _focus={{ bg: 'none' }} borderRadius='8px' px='14px'>
-							<Text fontSize='sm'>Profile Settings</Text>
+							<Text fontSize='sm'>Profile</Text>
 						</MenuItem>
 						<MenuItem _hover={{ bg: 'none' }} _focus={{ bg: 'none' }} borderRadius='8px' px='14px'>
-							<Text fontSize='sm'>Newsletter Settings</Text>
+							<Text fontSize='sm'>Change Password</Text>
 						</MenuItem>
 						<MenuItem
 							_hover={{ bg: 'none' }}
 							_focus={{ bg: 'none' }}
 							color='red.400'
 							borderRadius='8px'
-							onClick={()=>(Router.push("/auth/sign-in"))}
+							onClick={()=>onLogout()}
 							px='14px'>
 							<Text fontSize='sm'>Log out</Text>
 						</MenuItem>

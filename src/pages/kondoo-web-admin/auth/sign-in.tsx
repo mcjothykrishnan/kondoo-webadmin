@@ -27,7 +27,7 @@ import { RiEyeCloseLine } from "react-icons/ri";
 import Footer from "components/footer/FooterAdmin";
 import { useDispatch, useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
-import actions from "../../actions/index";
+import actions from "../../../actions/index";
 import Router from "next/router";
 import entries from "entries/authEntries";
 export default function SignIn() {
@@ -87,11 +87,15 @@ export default function SignIn() {
   }
 
   const setNav = () => {
-    Router.push("/admin/create-user");
+    Router.push("/kondoo-web-admin/admin/create-user");
   };
 
   useEffect(() => {
     if (loginAdmin?.data?.Success === true) {
+      localStorage.setItem("LoginChecker", loginAdmin?.data?.data?.id);
+     const tok = localStorage.setItem("token", loginAdmin?.data?.data?.access_token);
+     console.log(tok,"tok")
+      console.log(loginAdmin?.data?.data?.id,"Loginid")
       setNav();
     }
     if (loginAdmin?.data?.Success === false) {
@@ -268,7 +272,7 @@ export default function SignIn() {
                 </Text>
               </Link>
             </Flex>
-            <Link href="/admin/create-user">
+            {/* <Link href="/admin/create-user"> */}
               <Button
                 fontSize="sm"
                 variant="brand"
@@ -280,7 +284,7 @@ export default function SignIn() {
               >
                 Sign In
               </Button>
-            </Link>
+            {/* </Link> */}
           </FormControl>
           <Flex
             flexDirection="column"

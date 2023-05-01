@@ -1,106 +1,217 @@
-import { Icon } from '@chakra-ui/react'
+import { Icon } from "@chakra-ui/react";
 import {
-  MdBarChart,
   MdPerson,
   MdHome,
-  MdLock,
-  MdOutlineShoppingCart
-} from 'react-icons/md'
-
-// Admin Imports
-import MainDashboard from 'pages/admin/default'
-// import NFTMarketplace from 'pages/admin/nft-marketplace'
-import Players from 'pages/admin/players'
-import CreateUser from 'pages/admin/create-user'
-import Profile from 'pages/admin/profile'
-import DataTables from 'pages/admin/data-tables'
-import RTL from 'pages/rtl/rtl-default'
-
-// Auth Imports
-import SignInCentered from 'pages/auth/sign-in'
-import { IRoute } from 'types/navigation'
-
+  MdAdminPanelSettings,
+  MdGames,
+} from "react-icons/md";
+import MainDashboard from "pages/kondoo-web-admin/admin/dashboard";
+import CreateUser from "pages/kondoo-web-admin/admin/create-user";
+import Players from "pages/kondoo-web-admin/admin/players";
+import Profile from "pages/kondoo-web-admin/admin/profile";
+import userRole from "pages/kondoo-web-admin/admin/user-role";
+import { IRoute } from "types/navigation";
+import DataTables from "pages/kondoo-web-admin/admin/data-tables";
 const routes: IRoute[] = [
-  // {
-  //   name: 'Dashboard',
-  //   layout: '/admin',
-  //   path: '/default',
-  //   icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-  //   component: MainDashboard
-  // },
   {
-    name: 'Create User',
-    layout: '/admin',
-    path: '/create-user',
+    name: "Dashboard",
+    layout: "/kondoo-web-admin/admin",
+    path: "/dashboard",
+    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+    component: MainDashboard,
+  },
+  {
+    name: "Admin Users",
+    layout: "/kondoo-web-admin/admin",
+    path: "/create-user",
     icon: (
       <Icon
-        as={MdOutlineShoppingCart}
-        width='20px'
-        height='20px'
-        color='inherit'
+        as={MdAdminPanelSettings}
+        width="20px"
+        height="20px"
+        color="inherit"
       />
     ),
     component: CreateUser,
-    secondary: true
   },
   {
-    name: 'Players',
-    layout: '/admin',
-    path: '/players',
+    name: "User Role",
+    layout: "/kondoo-web-admin/admin",
+    path: "/user-role",
     icon: (
       <Icon
-        as={MdOutlineShoppingCart}
-        width='20px'
-        height='20px'
-        color='inherit'
+        as={MdAdminPanelSettings}
+        width="20px"
+        height="20px"
+        color="inherit"
       />
     ),
-    component: Players,
-    secondary: true
+    component: userRole,
   },
-  // {
-  //   name: 'NFT Marketplace',
-  //   layout: '/admin',
-  //   path: '/nft-marketplace',
-  //   icon: (
-  //     <Icon
-  //       as={MdOutlineShoppingCart}
-  //       width='20px'
-  //       height='20px'
-  //       color='inherit'
-  //     />
-  //   ),
-  //   component: NFTMarketplace,
-  //   secondary: true
-  // },
-  // {
-  //   name: 'Data Tables',
-  //   layout: '/admin',
-  //   icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
-  //   path: '/data-tables',
-  //   component: DataTables
-  // },
-  // {
-  //   name: 'Profile',
-  //   layout: '/admin',
-  //   path: '/profile',
-  //   icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-  //   component: Profile
-  // },
   {
-    name: 'Sign In',
-    layout: '/auth',
-    path: '/sign-in',
-    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
-    component: SignInCentered
+    name: "Players",
+    layout: "/kondoo-web-admin/admin",
+    path: "/players",
+    icon: <Icon as={MdGames} width="20px" height="20px" color="inherit" />,
+    component: Players,
   },
-  // {
-  //   name: 'RTL Admin',
-  //   layout: '/rtl',
-  //   path: '/rtl-default',
-  //   icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-  //   component: RTL
-  // }
-]
+  {
+    name: "Profile",
+    layout: "/kondoo-web-admin/admin",
+    path: "/profile",
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    component: Profile,
+  },
+  {
+    name: "Asset Management",
+    layout: "/kondoo-web-admin/admin",
+    path: "/data-tables",
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    component: DataTables,
+    children: [
+      {
+        name: "Demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+      {
+        name: "Demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+    ],
+  },
+  {
+    name: "Metrics",
+    layout: "/kondoo-web-admin/admin",
+    path: "/data-tables",
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    component: DataTables,
+    children: [
+      {
+        name: "Demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+      {
+        name: "Demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+    ],
+  },
+  {
+    name: "Content Management",
+    layout: "/kondoo-web-admin/admin",
+    path: "/data-tables",
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    component: DataTables,
 
-export default routes
+    children: [
+      {
+        name: "Demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+      {
+        name: "Demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+    ],
+  },
+  {
+    name: "Admin Modules",
+    layout: "/kondoo-web-admin/admin",
+    path: "/data-tables",
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    component: DataTables,
+
+    children: [
+      {
+        name: "Demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+      {
+        name: "Demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+    ],
+  },
+  {
+    name: "Players",
+    layout: "/kondoo-web-admin/admin",
+    path: "/data-tables",
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    component: DataTables,
+
+    children: [
+      {
+        name: "Demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+      {
+        name: "Demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+    ],
+  },
+
+  {
+    name: "Payment Configuration",
+    layout: "/kondoo-web-admin/admin",
+    path: "/data-tables",
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    component: DataTables,
+
+    children: [
+      {
+        name: "demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+      {
+        name: "demo",
+        layout: "/kondoo-web-admin/admin",
+        path: "/data-tables",
+        icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        component: DataTables,
+      },
+    ],
+  },
+  {
+    name: "Game Settings",
+    layout: "/kondoo-web-admin/admin",
+    path: "/data-tables",
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    component: DataTables,
+  },
+];
+
+export default routes;

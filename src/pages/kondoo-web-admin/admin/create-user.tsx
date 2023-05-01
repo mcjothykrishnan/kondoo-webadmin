@@ -37,9 +37,10 @@ import { RiEyeCloseLine } from "react-icons/ri";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Controller, useForm } from "react-hook-form";
-import actions from "../../actions/index";
-import * as USERENTRIES from "../../entries/createUserEntries";
+import actions from "../../../actions/index";
+import * as USERENTRIES from "../../../entries/createUserEntries";
 import reactSelect from "react-select";
+import Swal from 'sweetalert2'
 export default function DataTables() {
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
@@ -63,12 +64,15 @@ export default function DataTables() {
   const handleClick = () => setShow(!show);
   //redux integration
   const dispatch = useDispatch();
+  const loginAdmin = useSelector((state) => state?.login?.login);
+  console.log(loginAdmin, "loginAdmin");
   const defaultValues = {};
   const [rowTableData, setRowTableData] = useState([]);
   const { user, userGet, userEdit, userCreate, userDelete } = useSelector(
     (state) => state?.user
   );
   const [entries, setEntries] = useState(USERENTRIES.userEntries);
+
   const [editId, setEditId] = useState();
   const [editAbleValues, setEditAbleValues] = useState({});
   const [btnTitle, setBtnTitle] = useState("Submit");
@@ -82,20 +86,22 @@ export default function DataTables() {
     formState: { errors },
     reset,
   } = useForm({
-    defaultValues:editAbleValues,
+    defaultValues: editAbleValues,
   });
 
   function onSubmit(data1) {
     const submitData = { ...data1 };
+    console
     console.log(submitData, "checkData");
     const formData = {
       first_name: submitData.first_name,
       last_name: (submitData.last_name = ""),
       email: submitData.email,
+      user_role: "Admin",
       phone_number: (submitData.phone_number = parseInt(
         submitData.phone_number
       )),
-      user_role: submitData.user_role,
+      user_role_id: 2,
       password: submitData.password,
       login_method: (submitData.login_method = "google"),
     };
@@ -119,6 +125,11 @@ export default function DataTables() {
       };
 
       dispatch(actions.USER_EDIT(data));
+      Swal.fire(
+        'Edited Success!',
+        'You Edited the User Successfully!',
+        'success'
+      )
     } else {
       const data = {
         data: formData,
@@ -127,6 +138,11 @@ export default function DataTables() {
       };
 
       dispatch(actions.USER_CREATE(data));
+      Swal.fire(
+        'Good job!',
+        'You Created the User Successfully!',
+        'success'
+      )
     }
     reset({
       user_id: "",
@@ -140,11 +156,12 @@ export default function DataTables() {
       login_method: "",
       user_role: "",
       is_email_verified: "",
-      confirmPassword:"",
+      confirmPassword: "",
     });
-    
+
     setEditId("");
-    setBtnTitle("SUBMIT");
+    setEntries(USERENTRIES.userEntries);
+    setBtnTitle("Submit");
   }
 
   useEffect(() => {
@@ -162,22 +179,20 @@ export default function DataTables() {
   useEffect(() => {
     if (editId) {
       console.log(editId, "editId");
-     
-        setEditAbleValues({
-          
-         
-          first_name: userGet?.data?.first_name,
-          email: userGet?.data?.email,
-          phone_number: userGet?.data?.phone_number,
-          user_role:userGet?.data?.user_role,
-          password: userGet?.data?.password,
-        });
-      
+
+      setEditAbleValues({
+        first_name: userGet?.data?.first_name,
+        email: userGet?.data?.email,
+        phone_number: userGet?.data?.phone_number,
+        user_role: userGet?.data?.user_role,
+        password: userGet?.data?.password,
+      });
     }
   }, [userGet, editId]);
   useEffect(() => {
     if (editId) {
-      setBtnTitle("Submit & Update");
+      setEntries(USERENTRIES.userEditEntries);
+      setBtnTitle("Update");
       reset(editAbleValues);
     }
   }, [editAbleValues]);
@@ -185,12 +200,12 @@ export default function DataTables() {
     const data = {
       data: {},
       method: "get",
-      apiName: "users/list?skip=0&take=50",
+      apiName: "users/list?skip=0&take=50&type=2",
     };
     console.log(data, "checkDataValue");
 
     dispatch(actions.USER(data));
-  }, [dispatch, userGet,userEdit]);
+  }, [dispatch, userGet, userEdit]);
 
   useEffect(() => {
     const tempArr = [];
@@ -214,18 +229,19 @@ export default function DataTables() {
       })
     );
     setRowTableData(tempArr);
-  }, [user,userEdit,userCreate,userDelete]);
+  }, [user, userEdit, userCreate, userDelete]);
 
   const handleCancel = () => {
     reset({
-      first_name:"",
+      first_name: "",
       email: "",
       phone_number: "",
-      user_role:"",
-      password:"",
-      confirmPassword:""
+      user_role: "",
+      password: "",
+      confirmPassword: "",
     });
-    setBtnTitle("SUBMIT");
+    setEntries(USERENTRIES.userEntries);
+    setBtnTitle("Submit");
     setEditId();
   };
   return (
@@ -353,8 +369,8 @@ export default function DataTables() {
                               fontWeight="500"
                               size="md"
                             >
-                              <option value="admin">Admin</option>
-                              <option value="player">Player</option>
+                              {/* <option value="1">Player</option> */}
+                              <option value="2">Admin</option>
                             </Select>
                             {/* <Select
                               id="balance"
@@ -410,45 +426,42 @@ export default function DataTables() {
                   )}
                 </Grid>
               ))}
-
-              <div></div>
-              <div></div>
-              <SimpleGrid
-                style={{ display: "flex" }}
-                spacing={{ base: "20px", xl: "20px" }}
+            </SimpleGrid>
+            <SimpleGrid
+              style={{ display: "flex", justifyContent: "end" }}
+              spacing={{ base: "20px", xl: "20px" }}
+            >
+              <Button
+                fontSize="sm"
+                variant="brand"
+                fontWeight="500"
+                w="20%"
+                h="50"
+                mb="24px"
+                size="sm"
+                onClick={handleSubmit(onSubmit)}
               >
-                <Button
-                  fontSize="sm"
-                  variant="brand"
-                  fontWeight="500"
-                  w="100%"
-                  h="50"
-                  mb="24px"
-                  size="sm"
-                  onClick={handleSubmit(onSubmit)}
-                >
-                  {btnTitle}
-                </Button>
-                <Button
-                  fontSize="sm"
-                  size="sm"
-                  me="0px"
-                  mb="26px"
-                  py="15px"
-                  h="50px"
-                  w="100%"
-                  borderRadius="16px"
-                  bgColor={googleBg}
-                  color={googleText}
-                  fontWeight="500"
-                  _hover={googleHover}
-                  _active={googleActive}
-                  _focus={googleActive}
-                  onClick={() => handleCancel()}
-                >
-                  Cancel
-                </Button>
-              </SimpleGrid>
+                {btnTitle}
+              </Button>
+              <Button
+                fontSize="sm"
+                size="sm"
+                me="0px"
+                mb="26px"
+                py="15px"
+                h="50px"
+                w="20%"
+                borderRadius="16px"
+                bgColor={googleBg}
+                color={googleText}
+                fontWeight="500"
+                _hover={googleHover}
+                _active={googleActive}
+                _focus={googleActive}
+                onClick={() => handleCancel()}
+              >
+                Cancel
+              </Button>
             </SimpleGrid>
           </FormControl>
         </Card>

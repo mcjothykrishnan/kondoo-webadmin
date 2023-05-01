@@ -47,7 +47,7 @@ function TopCreatorTable (props: TableProps) {
   } = tableInstance
 
   const textColor = useColorModeValue('navy.700', 'white')
-  const textColorSecondary = useColorModeValue('secondaryGray.600', 'white')
+  const textColorSecondary = useColorModeValue('navy.700', 'white')
 
   return (
     <>
@@ -130,7 +130,7 @@ function TopCreatorTable (props: TableProps) {
                           {cell.value}
                         </Text>
                       )
-                    } else if (cell.column.Header === 'Rankings') {
+                    } else if (cell.column.Header === 'User Role') {
                       data = (
                         <Text
                         color={textColorSecondary}

@@ -8,7 +8,7 @@ export const tableColumnsTopCreators = [
     accessor: "user_id",
   },
   {
-    Header: "Rankings",
+    Header: "User Role",
     accessor: "user_role",
   },
   {

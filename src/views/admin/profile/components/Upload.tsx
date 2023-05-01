@@ -49,7 +49,7 @@ export default function Upload(props: { used?: number; total?: number; [x: strin
 						my={{ base: 'auto', '2xl': '10px' }}
 						mx='auto'
 						textAlign='start'>
-						Stay on the pulse of distributed projects with an anline whiteboard to plan, coordinate and
+						Stay on the pulse of distributed  with an anline whiteboard to play, coordinate and
 						discuss
 					</Text>
 					<Flex w='100%'>

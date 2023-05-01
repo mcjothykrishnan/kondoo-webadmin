@@ -35,7 +35,7 @@ import {
   MdOutlineRemoveRedEye
 } from "react-icons/md";
 export default function ColumnsTable(props: TableProps) {
-  const { columnsData, tableData, onEdit } = props;
+  const { columnsData, tableData, onEdit, onDelete } = props;
 
   const columns = useMemo(() => columnsData, [columnsData]);
   const data = useMemo(() => tableData, [tableData]);
@@ -179,7 +179,7 @@ export default function ColumnsTable(props: TableProps) {
                   } else if (cell.column.Header === "Actions") {
                     data = (
                       <>
-                        <Button
+                        {/* <Button
                           alignItems="center"
                           justifyContent="center"
                           marginRight={2}
@@ -202,7 +202,7 @@ export default function ColumnsTable(props: TableProps) {
                             w="23px"
                             h="23px"
                           />
-                        </Button>
+                        </Button> */}
 
                         
                         <Button
@@ -239,10 +239,10 @@ export default function ColumnsTable(props: TableProps) {
                           w="30px"
                           h="30px"
                           lineHeight="100%"
-                          disabled
-                          // onClick={() => {
-                          //   onEdit(cell.row.values.id);
-                          // }}
+                          // disabled
+                          onClick={() => {
+                            onDelete(cell.row.values.id);
+                          }}
                           borderRadius="10px"
                         >
                           <Icon

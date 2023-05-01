@@ -26,7 +26,7 @@ export default function DataTables () {
           columns={{ sm: 1, md: 2 }}
           spacing={{ base: '20px', xl: '20px' }}
         >
-          <DevelopmentTable
+          {/* <DevelopmentTable
             columnsData={columnsDataDevelopment}
             tableData={(tableDataDevelopment as unknown) as TableData[]}
           />
@@ -41,7 +41,7 @@ export default function DataTables () {
           <ComplexTable
             columnsData={columnsDataComplex}
             tableData={(tableDataComplex as unknown) as TableData[]}
-          />
+          /> */}
         </SimpleGrid>
       </Box>
     </AdminLayout>
